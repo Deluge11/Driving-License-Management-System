@@ -1,0 +1,10 @@
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\bin\Debug\DVLD_Project.exe.config
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\bin\Debug\DVLD_Project.exe
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\bin\Debug\DVLD_Project.pdb
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\obj\Debug\DVLD_Project.csproj.AssemblyReference.cache
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\obj\Debug\DVLD_Project.Form1.resources
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\obj\Debug\DVLD_Project.Properties.Resources.resources
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\obj\Debug\DVLD_Project.csproj.GenerateResource.cache
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\obj\Debug\DVLD_Project.csproj.CoreCompileInputs.cache
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\obj\Debug\DVLD_Project.exe
+C:\Users\hp\Desktop\Project_DVLD\DVLD_Project\obj\Debug\DVLD_Project.pdb
