@@ -8,7 +8,7 @@ namespace DVLD_Data
 {
     public struct stPersonInfo
     {
-        public int Id;
+        public int PersonID;
         public string NationalNo;
         public string FirstName;
         public string SecondName;
@@ -21,6 +21,5 @@ namespace DVLD_Data
         public string Email;
         public int NationalityCountryId;
         public string ImagePath;
-
     }
 }
