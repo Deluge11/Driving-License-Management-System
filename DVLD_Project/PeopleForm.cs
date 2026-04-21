@@ -13,31 +13,7 @@ namespace DVLD_Project
 {
     public partial class PeopleForm : Form
     {
-        public PeopleForm()
-        {
-            InitializeComponent();
-
-
-            RefreshForm();
-        }
-
-        private void Form2_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void RefreshForm()
-        {
-            RefreshPeopleDataGridVeiw();
-        }
-
-        private void RefreshPeopleDataGridVeiw()
-        {
-            DataTable dt = clsPerson.GetAll();
-
-            string[] columnsToKeep = {
+        string[] columnsToKeep = {
                 "PersonID",
                 "NationalNo",
                 "Email",
@@ -52,6 +28,44 @@ namespace DVLD_Project
                 "GendorName",
             };
 
+        Dictionary<string, Type> colTypes = new Dictionary<string, Type>();
+
+        public PeopleForm()
+        {
+            InitializeComponent();
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            cbFilterBy.Items.Add("");
+            cbFilterBy.Items.AddRange(columnsToKeep);
+            LoadColumnTypes();
+            RefreshForm();
+        }
+
+
+        private void LoadColumnTypes()
+        {
+            DataTable dt = clsPerson.GetAll();
+            foreach (string colName in columnsToKeep)
+            {
+                if (dt.Columns.Contains(colName))
+                    colTypes[colName] = dt.Columns[colName].DataType;
+            }
+        }
+
+        private void RefreshForm()
+        {
+            textBox1.Visible = !string.IsNullOrEmpty(cbFilterBy.Text);
+            RefreshPeopleDataGridView();
+        }
+
+        private void RefreshPeopleDataGridView()
+        {
+            DataTable dt = clsPerson.GetAll();
+
+            string filterBy = cbFilterBy.Text;
+
             foreach (DataColumn col in dt.Columns.OfType<DataColumn>().ToList())
             {
                 if (!columnsToKeep.Contains(col.ColumnName))
@@ -60,7 +74,26 @@ namespace DVLD_Project
                 }
             }
 
-            dgvPeople.DataSource = dt;
+
+            if (!string.IsNullOrEmpty(filterBy) && !string.IsNullOrEmpty(textBox1.Text))
+            {
+                DataTable dtAfterFilter = dt.Clone();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row[filterBy].ToString() == textBox1.Text)
+                    {
+                        dtAfterFilter.ImportRow(row);
+                    }
+                }
+
+                dgvPeople.DataSource = dtAfterFilter;
+
+            }
+            else
+            {
+                dgvPeople.DataSource = dt;
+            }
         }
 
 
@@ -151,6 +184,40 @@ namespace DVLD_Project
             AddUpdatePerson form = new AddUpdatePerson(personId);
             form.ShowDialog();
             RefreshForm();
+        }
+
+        private void personDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int personId = Convert.ToInt32(dgvPeople.CurrentRow.Cells["PersonID"].Value);
+
+            PersonDetails form = new PersonDetails(personId);
+
+            form.ShowDialog();
+        }
+
+        private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+            RefreshForm();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            RefreshForm();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            string filterBy = cbFilterBy.Text;
+            if (string.IsNullOrEmpty(filterBy) || !colTypes.ContainsKey(filterBy))
+                return;
+
+            Type colType = colTypes[filterBy];
+            if (colType == typeof(int) || colType == typeof(long) || colType == typeof(decimal))
+            {
+                e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back;
+            }
         }
     }
 }

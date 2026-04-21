@@ -1,4 +1,5 @@
 ﻿using DVLD_Business;
+using DVLD_Project.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,22 +14,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using DVLD_Project.Classes;
 
 namespace DVLD_Project
 {
     public partial class AddUpdatePerson : Form
     {
         clsPerson Person = null;
-        string OriginalImagePath;
+
         enum enMode { Add, Update }
+        enum enGender { Male, Female }
         enMode Mode;
 
         public AddUpdatePerson()
         {
             InitializeComponent();
-
-            Person = new clsPerson();
             Mode = enMode.Add;
+            Person = new clsPerson();
 
         }
 
@@ -40,46 +42,47 @@ namespace DVLD_Project
 
             if (Person == null)
             {
-                Person = new clsPerson();
-                Mode = enMode.Add;
+                MessageBox.Show("Person Not Exists");
+                this.Close();
+                return;
             }
-            else
-            {
-                Mode = enMode.Update;
-            }
+            Mode = enMode.Update;
+
         }
 
         private void AddUpdatePerson_Load(object sender, EventArgs e)
         {
+            SetDefaultValues();
+
+            if (Mode == enMode.Update)
+                _LoadData();
+        }
+
+        private void SetDefaultValues()
+        {
             _FillCountryComboBox();
             dtpBirthOfDate.MaxDate = DateTime.Now.AddYears(-18);
             dtpBirthOfDate.MinDate = DateTime.Now.AddYears(-90);
-
-            OriginalImagePath = Person.ImagePath;
-            RefreshForm();
-        }
-
-        private void RefreshForm()
-        {
+            dtpBirthOfDate.Value = dtpBirthOfDate.MaxDate;
             if (Mode == enMode.Add)
-                _AddForm();
+            {
+                lblTitle.Text = "Add New Person";
+
+            }
             else
-                _UpdateForm();
+            {
+                lblTitle.Text = "Edit Person";
+            }
 
-            llbl_RemoveImage.Visible = Person.ImagePath != null;
-            RefreshImage();
-        }
-
-        private void _AddForm()
-        {
             rbMale.Checked = true;
-            lblTitle.Text = "Add New Person";
-            lblPersonId.Text = "N/A";
-        }
 
-        private void _UpdateForm()
+            ll_RemoveImage.Visible = pbPersonImage.ImageLocation != null;
+
+            cbCountry.SelectedIndex = cbCountry.FindString("Jordan");
+
+        }
+        private void _LoadData()
         {
-            lblTitle.Text = "Edit Person";
             lblPersonId.Text = Person.PersonID.ToString();
             tbNationalNo.Text = Person.NationalNo;
             tbAddress.Text = Person.Address;
@@ -91,25 +94,20 @@ namespace DVLD_Project
             tbPhone.Text = Person.Phone;
             dtpBirthOfDate.Value = Person.DateOfBirth;
 
-            cbCountry.SelectedItem = clsCountry.Get(Person.NationalityCountryId).CountryName;
+            cbCountry.SelectedIndex = cbCountry.FindString(clsCountry.Get(Person.NationalityCountryId).CountryName);
 
 
-            if (Person.Gender == 0)
+            if (Person.Gender == (short)enGender.Male)
                 rbMale.Checked = true;
             else
                 rbFemale.Checked = true;
 
-
             if (Person.ImagePath != null)
             {
-                string imageFullPath = GetImageFullPath(Person.ImagePath);
-
-                if (File.Exists(imageFullPath))
-                {
-                    pbPersonImage.Image = LoadImageWithoutLock(imageFullPath);
-                    pbPersonImage.SizeMode = PictureBoxSizeMode.Zoom;
-                }
+                pbPersonImage.ImageLocation = GetImageFullPath(Person.ImagePath);
             }
+
+            ll_RemoveImage.Visible = Person.ImagePath != null;
         }
 
         private void _FillCountryComboBox()
@@ -120,130 +118,126 @@ namespace DVLD_Project
             {
                 cbCountry.Items.Add(row["CountryName"]);
             }
-
-            cbCountry.SelectedItem = "Jordan";
         }
 
         private void btn_save_Click(object sender, EventArgs e)
         {
-            Person.NationalNo = tbNationalNo.Text;
-            Person.Address = tbAddress.Text;
-            Person.Email = tbEmail.Text;
-            Person.FirstName = tbFirstName.Text;
-            Person.SecondName = tbSecondName.Text;
-            Person.ThirdName = tbThirdName.Text;
-            Person.LastName = tbLastName.Text;
-            Person.Phone = tbPhone.Text;
+            if (!this.ValidateChildren())
+            {
+                MessageBox.Show("Some field are not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!HandleImageSave())
+            {
+                MessageBox.Show("Cannot Save The Image", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            Person.NationalNo = tbNationalNo.Text.Trim();
+            Person.Address = tbAddress.Text.Trim();
+            Person.Email = tbEmail.Text.Trim();
+            Person.FirstName = tbFirstName.Text.Trim();
+            Person.SecondName = tbSecondName.Text.Trim();
+            Person.ThirdName = tbThirdName.Text.Trim();
+            Person.LastName = tbLastName.Text.Trim();
+            Person.Phone = tbPhone.Text.Trim();
             Person.DateOfBirth = dtpBirthOfDate.Value;
 
             Person.Gender = rbMale.Checked ? (byte)0 : (byte)1;
 
             Person.NationalityCountryId = clsCountry.Get(cbCountry.SelectedItem.ToString()).CountryID;
 
+            Person.ImagePath = pbPersonImage.ImageLocation;
 
             if (Person.Save())
             {
-                if (Person.ImagePath != OriginalImagePath)
-                {
-                    if (!string.IsNullOrEmpty(Person.ImagePath))
-                    {
-                        string newImageFullPath = GetImageFullPath(Person.ImagePath);
-
-                        using (Bitmap temp = new Bitmap(pbPersonImage.Image))
-                        {
-                            temp.Save(newImageFullPath, ImageFormat.Png);
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(OriginalImagePath))
-                    {
-                        string oldImageFullPath = GetImageFullPath(OriginalImagePath);
-
-                        if (File.Exists(oldImageFullPath))
-                        {
-                            var oldImage = pbPersonImage.Image;
-                            pbPersonImage.Image = null;
-                            oldImage?.Dispose();
-                            File.Delete(oldImageFullPath);
-                        }
-
-                    }
-
-                    OriginalImagePath = Person.ImagePath;
-                }
+                lblPersonId.Text = Person.PersonID.ToString();
 
                 MessageBox.Show("Info Saved Successfully", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Mode = enMode.Update;
+
+                //DataBack?.Invoke(this, Person.PersonID);
             }
             else
             {
                 MessageBox.Show("Info Not Saved", "Not Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            RefreshForm();
+            _LoadData();
         }
 
+        private bool HandleImageSave()
+        {
+            if (Person.ImagePath != pbPersonImage.ImageLocation)
+            {
+                if (!string.IsNullOrEmpty(Person.ImagePath))
+                {
+                    try
+                    {
+                        File.Delete(GetImageFullPath(Person.ImagePath));
+                    }
+                    catch (IOException)
+                    {
+
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(pbPersonImage.ImageLocation))
+                {
+                    string sourceImagePath = pbPersonImage.ImageLocation;
+
+                    if (clsUtil.CopyImageToProjectImagesFolder(ref sourceImagePath))
+                    {
+                        pbPersonImage.ImageLocation = sourceImagePath;
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Image Not Saved !", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                }
+
+            }
+
+
+            return true;
+        }
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "PNG Images|*.png|All Files|*.*";
-            openFileDialog.Title = "Select PNG Image";
+            openFileDialog.Filter = "PNG Images|*.png;*.jpg";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
 
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (pbPersonImage.Image != null)
-                {
-                    pbPersonImage.Image.Dispose();
-                    pbPersonImage.Image = null;
-                }
-
-                using (var img = Image.FromFile(openFileDialog.FileName))
-                {
-                    pbPersonImage.Image = new Bitmap(img);
-                }
-
-                Person.ImagePath = pbPersonImage.Image != null ? Guid.NewGuid().ToString() + ".png" : null;
-                pbPersonImage.SizeMode = PictureBoxSizeMode.Zoom;
+                string selectedFilePath = openFileDialog.FileName;
+                pbPersonImage.ImageLocation = selectedFilePath;
+                ll_RemoveImage.Visible = true;
             }
 
-            RefreshForm();
         }
 
-        private Image LoadImageWithoutLock(string path)
-        {
-            using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read))
-            {
-                return new Bitmap(Image.FromStream(fs));
-            }
-        }
-
-        private string GetExtension(string path)
-        {
-            int index = path.Length;
-            List<char> buffer = new List<char>(5);
-
-            while (path[--index] != '.')
-            {
-                buffer.Insert(0, path[index]);
-            }
-
-            return buffer.ToString();
-        }
-
-        private void tbFirstName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbFirstName_Leave(object sender, EventArgs e)
-        {
-
-        }
 
         private void tbNationalNo_Validating(object sender, CancelEventArgs e)
         {
-            if (Person.NationalNo != tbNationalNo.Text && clsPerson.GetByNationalNo(tbNationalNo.Text) != null)
+            if (!string.IsNullOrEmpty(Person.NationalNo))
+            {
+                e.Cancel = true;
+                tbNationalNo.Focus();
+                errorProvider1.SetError(tbNationalNo, "Required!");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(tbNationalNo, "");
+            }
+
+            if (Person.NationalNo != tbNationalNo.Text.Trim() && clsPerson.Exists(tbNationalNo.Text))
             {
                 e.Cancel = true;
                 tbNationalNo.Focus();
@@ -264,7 +258,7 @@ namespace DVLD_Project
             if (string.IsNullOrWhiteSpace(email))
                 return;
 
-            if (!IsValidEmail(email))
+            if (!clsValidatoin.ValidateEmail(email))
             {
                 e.Cancel = true;
                 tbEmail.Focus();
@@ -276,26 +270,6 @@ namespace DVLD_Project
                 errorProvider1.SetError(tbEmail, "");
             }
         }
-
-        private bool IsValidEmail(string email)
-        {
-            int atIndex = email.IndexOf('@');
-            if (atIndex <= 0 || atIndex >= email.Length - 1)
-                return false;
-
-            int dotIndex = email.IndexOf('.', atIndex + 1);
-            if (dotIndex <= 0 || dotIndex >= email.Length - 1)
-                return false;
-
-            string beforeAt = email.Substring(0, atIndex);
-            string betweenAtDot = email.Substring(atIndex + 1, dotIndex - atIndex - 1);
-            string afterDot = email.Substring(dotIndex + 1);
-
-            return !string.IsNullOrWhiteSpace(beforeAt) &&
-                   !string.IsNullOrWhiteSpace(betweenAtDot) &&
-                   !string.IsNullOrWhiteSpace(afterDot);
-        }
-
 
         private void tbRequired(object sender, CancelEventArgs e)
         {
@@ -326,12 +300,10 @@ namespace DVLD_Project
 
         private void RefreshImage()
         {
-            if (Person.ImagePath != null)
-                return;
-
-            pbPersonImage.Image = rbFemale.Checked ? image_collector.Images["Female.png"] : image_collector.Images["Male.png"];
-
-            pbPersonImage.SizeMode = PictureBoxSizeMode.Zoom;
+            if (pbPersonImage.ImageLocation == null)
+            {
+                pbPersonImage.Image = rbFemale.Checked ? Resources.Female_512 : Resources.Male_512;
+            }
         }
 
         private string GetImageFullPath(string path)
@@ -339,23 +311,16 @@ namespace DVLD_Project
             return Path.Combine(clsSystemSettings.ImageFolderPath, path);
         }
 
-
-
         private void btn_close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void llbl_RemoveImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void ll_RemoveImage_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (pbPersonImage.Image != null)
-            {
-                pbPersonImage.Image.Dispose();
-                pbPersonImage.Image = null;
-                Person.ImagePath = null;
-            }
-
-            RefreshForm();
+            pbPersonImage.ImageLocation = null;
+            ll_RemoveImage.Visible = false;
+            RefreshImage();
         }
 
 

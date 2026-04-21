@@ -8,6 +8,6 @@ namespace DVLD_Project
 {
     public static class clsSystemSettings
     {
-        public static string ImageFolderPath => @"C:\Users\hp\Desktop\Project_DVLD\Images\PeopleImage";
+        public static string ImageFolderPath => @"C:\Users\hp\Desktop\Project_DVLD\Images\PeopleImage\";
     }
 }

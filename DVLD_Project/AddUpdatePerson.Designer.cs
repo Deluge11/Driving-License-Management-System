@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddUpdatePerson));
             this.lblTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblPersonId = new System.Windows.Forms.Label();
@@ -53,15 +52,14 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.tbAddress = new System.Windows.Forms.TextBox();
-            this.pbPersonImage = new System.Windows.Forms.PictureBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.llbl_RemoveImage = new System.Windows.Forms.LinkLabel();
+            this.ll_RemoveImage = new System.Windows.Forms.LinkLabel();
             this.btn_close = new System.Windows.Forms.Button();
             this.btn_save = new System.Windows.Forms.Button();
-            this.image_collector = new System.Windows.Forms.ImageList(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
+            this.pbPersonImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -135,8 +133,6 @@
             this.tbFirstName.Name = "tbFirstName";
             this.tbFirstName.Size = new System.Drawing.Size(138, 26);
             this.tbFirstName.TabIndex = 12;
-            this.tbFirstName.TextChanged += new System.EventHandler(this.tbFirstName_TextChanged);
-            this.tbFirstName.Leave += new System.EventHandler(this.tbFirstName_Leave);
             this.tbFirstName.Validating += new System.ComponentModel.CancelEventHandler(this.tbRequired);
             // 
             // tbLastName
@@ -268,14 +264,6 @@
             this.tbAddress.Size = new System.Drawing.Size(482, 62);
             this.tbAddress.TabIndex = 27;
             // 
-            // pbPersonImage
-            // 
-            this.pbPersonImage.Location = new System.Drawing.Point(717, 259);
-            this.pbPersonImage.Name = "pbPersonImage";
-            this.pbPersonImage.Size = new System.Drawing.Size(186, 138);
-            this.pbPersonImage.TabIndex = 28;
-            this.pbPersonImage.TabStop = false;
-            // 
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
@@ -287,16 +275,16 @@
             this.linkLabel1.Text = "Set Image";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // llbl_RemoveImage
+            // ll_RemoveImage
             // 
-            this.llbl_RemoveImage.AutoSize = true;
-            this.llbl_RemoveImage.Location = new System.Drawing.Point(770, 446);
-            this.llbl_RemoveImage.Name = "llbl_RemoveImage";
-            this.llbl_RemoveImage.Size = new System.Drawing.Size(68, 20);
-            this.llbl_RemoveImage.TabIndex = 30;
-            this.llbl_RemoveImage.TabStop = true;
-            this.llbl_RemoveImage.Text = "Remove";
-            this.llbl_RemoveImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbl_RemoveImage_LinkClicked);
+            this.ll_RemoveImage.AutoSize = true;
+            this.ll_RemoveImage.Location = new System.Drawing.Point(770, 446);
+            this.ll_RemoveImage.Name = "ll_RemoveImage";
+            this.ll_RemoveImage.Size = new System.Drawing.Size(68, 20);
+            this.ll_RemoveImage.TabIndex = 30;
+            this.ll_RemoveImage.TabStop = true;
+            this.ll_RemoveImage.Text = "Remove";
+            this.ll_RemoveImage.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ll_RemoveImage_LinkClicked);
             // 
             // btn_close
             // 
@@ -318,16 +306,19 @@
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
-            // image_collector
-            // 
-            this.image_collector.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("image_collector.ImageStream")));
-            this.image_collector.TransparentColor = System.Drawing.Color.Transparent;
-            this.image_collector.Images.SetKeyName(0, "Female.png");
-            this.image_collector.Images.SetKeyName(1, "Male.png");
-            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // pbPersonImage
+            // 
+            this.pbPersonImage.Image = global::DVLD_Project.Properties.Resources.Male_512;
+            this.pbPersonImage.Location = new System.Drawing.Point(717, 244);
+            this.pbPersonImage.Name = "pbPersonImage";
+            this.pbPersonImage.Size = new System.Drawing.Size(186, 157);
+            this.pbPersonImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbPersonImage.TabIndex = 28;
+            this.pbPersonImage.TabStop = false;
             // 
             // AddUpdatePerson
             // 
@@ -336,7 +327,7 @@
             this.ClientSize = new System.Drawing.Size(996, 526);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.btn_close);
-            this.Controls.Add(this.llbl_RemoveImage);
+            this.Controls.Add(this.ll_RemoveImage);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.pbPersonImage);
             this.Controls.Add(this.tbAddress);
@@ -365,8 +356,8 @@
             this.Name = "AddUpdatePerson";
             this.Text = "Person Form";
             this.Load += new System.EventHandler(this.AddUpdatePerson_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPersonImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -399,10 +390,9 @@
         private System.Windows.Forms.TextBox tbAddress;
         private System.Windows.Forms.PictureBox pbPersonImage;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.LinkLabel llbl_RemoveImage;
+        private System.Windows.Forms.LinkLabel ll_RemoveImage;
         private System.Windows.Forms.Button btn_close;
         private System.Windows.Forms.Button btn_save;
-        private System.Windows.Forms.ImageList image_collector;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

@@ -130,6 +130,15 @@ namespace DVLD_Business
             return clsDataPeople.Delete(personId);
         }
 
+        public static bool Exists(int personId)
+        {
+            return clsDataPeople.Exists(personId);
+        }
+
+        public static bool Exists(string nationalNo)
+        {
+            return clsDataPeople.Exists(nationalNo);
+        }
         public static DataTable GetAll()
         {
             return clsDataPeople.GetAll();

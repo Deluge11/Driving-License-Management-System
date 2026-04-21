@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.dgvPeople = new System.Windows.Forms.DataGridView();
             this.cms_Person = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.personDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addPersonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +70,7 @@
             // 
             this.cms_Person.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.cms_Person.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.personDetailsToolStripMenuItem,
             this.addPersonToolStripMenuItem,
             this.toolStripSeparator1,
             this.editToolStripMenuItem,
@@ -77,26 +79,33 @@
             this.callPhoneToolStripMenuItem,
             this.sendEmailToolStripMenuItem});
             this.cms_Person.Name = "cms_Person";
-            this.cms_Person.Size = new System.Drawing.Size(185, 176);
+            this.cms_Person.Size = new System.Drawing.Size(204, 208);
             this.cms_Person.Opening += new System.ComponentModel.CancelEventHandler(this.cms_Person_Opening);
+            // 
+            // personDetailsToolStripMenuItem
+            // 
+            this.personDetailsToolStripMenuItem.Name = "personDetailsToolStripMenuItem";
+            this.personDetailsToolStripMenuItem.Size = new System.Drawing.Size(203, 32);
+            this.personDetailsToolStripMenuItem.Text = "Person Details";
+            this.personDetailsToolStripMenuItem.Click += new System.EventHandler(this.personDetailsToolStripMenuItem_Click);
             // 
             // addPersonToolStripMenuItem
             // 
             this.addPersonToolStripMenuItem.Name = "addPersonToolStripMenuItem";
-            this.addPersonToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.addPersonToolStripMenuItem.Size = new System.Drawing.Size(203, 32);
             this.addPersonToolStripMenuItem.Text = "Add Person";
             this.addPersonToolStripMenuItem.Click += new System.EventHandler(this.addPersonToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(245, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(200, 6);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Edit_User_32;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(203, 32);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -104,32 +113,32 @@
             // 
             this.deleteToolStripMenuItem.Image = global::DVLD_Project.Properties.Resources.Delete_User_32;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(203, 32);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // sentEmailToolStripMenuItem
             // 
             this.sentEmailToolStripMenuItem.Name = "sentEmailToolStripMenuItem";
-            this.sentEmailToolStripMenuItem.Size = new System.Drawing.Size(245, 6);
+            this.sentEmailToolStripMenuItem.Size = new System.Drawing.Size(200, 6);
             this.sentEmailToolStripMenuItem.Click += new System.EventHandler(this.sentEmailToolStripMenuItem_Click);
             // 
             // callPhoneToolStripMenuItem
             // 
             this.callPhoneToolStripMenuItem.Name = "callPhoneToolStripMenuItem";
-            this.callPhoneToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.callPhoneToolStripMenuItem.Size = new System.Drawing.Size(203, 32);
             this.callPhoneToolStripMenuItem.Text = "Call Phone";
             // 
             // sendEmailToolStripMenuItem
             // 
             this.sendEmailToolStripMenuItem.Name = "sendEmailToolStripMenuItem";
-            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(248, 32);
+            this.sendEmailToolStripMenuItem.Size = new System.Drawing.Size(203, 32);
             this.sendEmailToolStripMenuItem.Text = "Send Email";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 118);
+            this.label1.Location = new System.Drawing.Point(12, 115);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 20);
             this.label1.TabIndex = 2;
@@ -137,18 +146,22 @@
             // 
             // cbFilterBy
             // 
+            this.cbFilterBy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFilterBy.FormattingEnabled = true;
-            this.cbFilterBy.Location = new System.Drawing.Point(84, 115);
+            this.cbFilterBy.Location = new System.Drawing.Point(98, 111);
             this.cbFilterBy.Name = "cbFilterBy";
             this.cbFilterBy.Size = new System.Drawing.Size(153, 28);
             this.cbFilterBy.TabIndex = 3;
+            this.cbFilterBy.SelectedIndexChanged += new System.EventHandler(this.cbFilterBy_SelectedIndexChanged);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(243, 112);
+            this.textBox1.Location = new System.Drawing.Point(271, 112);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(183, 26);
             this.textBox1.TabIndex = 4;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // button1
             // 
@@ -195,5 +208,6 @@
         private System.Windows.Forms.ToolStripMenuItem callPhoneToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem sendEmailToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem personDetailsToolStripMenuItem;
     }
 }

@@ -110,6 +110,60 @@ namespace DVLD_Data
             return isFound;
         }
 
+        public static bool Exists(int id)
+        {
+            bool isFound = false;
+            string query = @"SELECT 1 FROM People WHERE PersonID = @Id";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@Id", id);
+
+            try
+            {
+                sqlConnection.Open();
+                isFound = sqlCommand.ExecuteScalar() != null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+        }
+
+        public static bool Exists(string nationalNo)
+        {
+            bool isFound = false;
+            string query = @"SELECT 1 FROM People WHERE NationalNo = @NationalNo";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@NationalNo", nationalNo);
+
+            try
+            {
+                sqlConnection.Open();
+                isFound = sqlCommand.ExecuteScalar() != null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+        }
+
         public static bool GetByNationalNo(string nationalNo, out stPersonInfo info)
         {
             bool isFound = false;
