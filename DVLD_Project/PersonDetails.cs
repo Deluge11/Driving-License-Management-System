@@ -17,12 +17,17 @@ namespace DVLD_Project
         public PersonDetails(int personId)
         {
             InitializeComponent();
-            this.personId = personId;
+            uc_PersonDetails1.LoadPerson(personId);
+        }
+
+        public PersonDetails(string nationalNo)
+        {
+            InitializeComponent();
+            uc_PersonDetails1.LoadPerson(nationalNo);
         }
 
         private void PersonDetails_Load(object sender, EventArgs e)
         {
-            uc_PersonDetails1.LoadPerson(personId);
         }
 
         

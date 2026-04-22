@@ -50,6 +50,7 @@
             this.lbl_country = new System.Windows.Forms.Label();
             this.lbl_phone = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.ll_EditPerson = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pb_personimage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,11 +138,13 @@
             // pb_personimage
             // 
             this.pb_personimage.Image = global::DVLD_Project.Properties.Resources.Male_512;
-            this.pb_personimage.Location = new System.Drawing.Point(508, 123);
+            this.pb_personimage.Location = new System.Drawing.Point(495, 123);
             this.pb_personimage.Name = "pb_personimage";
             this.pb_personimage.Size = new System.Drawing.Size(155, 137);
+            this.pb_personimage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pb_personimage.TabIndex = 9;
             this.pb_personimage.TabStop = false;
+            this.pb_personimage.Click += new System.EventHandler(this.pb_personimage_Click);
             // 
             // lbl_date
             // 
@@ -233,10 +236,23 @@
             this.imageList1.Images.SetKeyName(0, "Male.png");
             this.imageList1.Images.SetKeyName(1, "Female.png");
             // 
+            // ll_EditPerson
+            // 
+            this.ll_EditPerson.AutoSize = true;
+            this.ll_EditPerson.Location = new System.Drawing.Point(524, 80);
+            this.ll_EditPerson.Name = "ll_EditPerson";
+            this.ll_EditPerson.Size = new System.Drawing.Size(91, 20);
+            this.ll_EditPerson.TabIndex = 19;
+            this.ll_EditPerson.TabStop = true;
+            this.ll_EditPerson.Text = "Edit Person";
+            this.ll_EditPerson.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ll_EditPerson_LinkClicked);
+            // 
             // uc_PersonDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.ll_EditPerson);
             this.Controls.Add(this.lbl_phone);
             this.Controls.Add(this.lbl_country);
             this.Controls.Add(this.lbl_name);
@@ -257,7 +273,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "uc_PersonDetails";
-            this.Size = new System.Drawing.Size(685, 340);
+            this.Size = new System.Drawing.Size(683, 338);
             this.Load += new System.EventHandler(this.uc_PersonDetails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pb_personimage)).EndInit();
             this.ResumeLayout(false);
@@ -287,5 +303,6 @@
         private System.Windows.Forms.Label lbl_country;
         private System.Windows.Forms.Label lbl_phone;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.LinkLabel ll_EditPerson;
     }
 }

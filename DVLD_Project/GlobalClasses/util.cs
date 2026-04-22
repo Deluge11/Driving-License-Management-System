@@ -11,6 +11,11 @@ namespace DVLD_Project.Classes
 {
     public class clsUtil
     {
+        public static string GetImageFullPath(string path)
+        {
+            return Path.Combine(clsSystemSettings.ImageFolderPath, path);
+        }
+
         public static string GenerateGUID()
         {
 

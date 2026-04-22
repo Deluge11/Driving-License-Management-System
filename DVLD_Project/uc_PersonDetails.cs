@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DVLD_Business;
 using System.IO;
+using DVLD_Project.Classes;
+using DVLD_Project.Properties;
 
 namespace DVLD_Project
 {
     public partial class uc_PersonDetails : UserControl
     {
-        clsPerson Person;
+        public clsPerson Person;
         public uc_PersonDetails()
         {
             InitializeComponent();
@@ -27,7 +29,13 @@ namespace DVLD_Project
 
         public void LoadPerson(int personId)
         {
-            Person = clsPerson.GetById(personId);
+            Person = clsPerson.Get(personId);
+            RefreshForm();
+        }
+
+        public void LoadPerson(string nationalNo)
+        {
+            Person = clsPerson.Get(nationalNo);
             RefreshForm();
         }
 
@@ -60,20 +68,12 @@ namespace DVLD_Project
                 lbl_country.Text = clsCountry.Get(Person.NationalityCountryId).CountryName;
                 lbl_address.Text = Person.Address;
 
-                if (Person.ImagePath != null && File.Exists(Person.ImagePath))
-                {
-                    using (FileStream fs = new FileStream(Person.ImagePath, FileMode.Open, FileAccess.Read))
-                    {
-                        pb_personimage.Image = Image.FromStream(fs);
-                    }
-                }
-                else
-                {
-                    pb_personimage.Image = Person.Gender == 1 ? imageList1.Images["Female.png"] : imageList1.Images["Male.png"];
+                pb_personimage.Image = Person.Gender == 0 ? Resources.Male_512 : Resources.Female_512;
 
+                if (Person.ImagePath != null && File.Exists(clsUtil.GetImageFullPath(Person.ImagePath)))
+                {
+                    pb_personimage.ImageLocation = clsUtil.GetImageFullPath(Person.ImagePath);
                 }
-                pb_personimage.SizeMode = PictureBoxSizeMode.Zoom;
-
             }
         }
 
@@ -83,6 +83,26 @@ namespace DVLD_Project
         }
 
         private void lbl_gender_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ll_EditPerson_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (Person != null)
+            {
+                AddUpdatePerson form = new AddUpdatePerson(Person.PersonID);
+                form.ShowDialog();
+                RefreshForm();
+            }
+            else
+            {
+                // Message Box
+            }
+
+        }
+
+        private void pb_personimage_Click(object sender, EventArgs e)
         {
 
         }

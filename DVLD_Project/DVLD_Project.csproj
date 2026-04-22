@@ -52,15 +52,21 @@
     <Compile Include="AddUpdatePerson.Designer.cs">
       <DependentUpon>AddUpdatePerson.cs</DependentUpon>
     </Compile>
+    <Compile Include="FindPersonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindPersonForm.Designer.cs">
+      <DependentUpon>FindPersonForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalClasses\clsFormat.cs" />
     <Compile Include="GlobalClasses\clsGlobal.cs" />
     <Compile Include="GlobalClasses\clsSystemSettings.cs" />
     <Compile Include="GlobalClasses\clsValidatoin.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="PersonDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="PersonDetails.Designer.cs">
+      <DependentUpon>PersonDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="HomeForm.cs">
       <SubType>Form</SubType>
@@ -83,11 +89,20 @@
       <DependentUpon>uc_PersonDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalClasses\util.cs" />
+    <Compile Include="uc_PersonDetailsWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="uc_PersonDetailsWithFilter.Designer.cs">
+      <DependentUpon>uc_PersonDetailsWithFilter.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddUpdatePerson.resx">
       <DependentUpon>AddUpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FindPersonForm.resx">
+      <DependentUpon>FindPersonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PersonDetails.resx">
+      <DependentUpon>PersonDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
@@ -107,6 +122,9 @@
     </Compile>
     <EmbeddedResource Include="uc_PersonDetails.resx">
       <DependentUpon>uc_PersonDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="uc_PersonDetailsWithFilter.resx">
+      <DependentUpon>uc_PersonDetailsWithFilter.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

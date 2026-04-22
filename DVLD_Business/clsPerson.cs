@@ -69,7 +69,7 @@ namespace DVLD_Business
         }
 
 
-        public static clsPerson GetById(int id)
+        public static clsPerson Get(int id)
         {
             if (clsDataPeople.GetById(id, out stPersonInfo info))
             {
@@ -78,7 +78,7 @@ namespace DVLD_Business
             return null;
         }
 
-        public static clsPerson GetByNationalNo(string nationalNo)
+        public static clsPerson Get(string nationalNo)
         {
             if (clsDataPeople.GetByNationalNo(nationalNo, out stPersonInfo info))
             {

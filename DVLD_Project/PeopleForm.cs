@@ -13,7 +13,11 @@ namespace DVLD_Project
 {
     public partial class PeopleForm : Form
     {
-        string[] columnsToKeep = {
+        static DataTable FullDataTable = clsPerson.GetAll();
+
+        DataTable _dtPeople = FullDataTable.DefaultView.ToTable(false, columnsToKeep);
+
+        static string[] columnsToKeep = {
                 "PersonID",
                 "NationalNo",
                 "Email",
@@ -24,7 +28,6 @@ namespace DVLD_Project
                 "Phone",
                 "DateOfBirth",
                 "Address",
-                //"Gendor",
                 "GendorName",
             };
 
@@ -37,10 +40,13 @@ namespace DVLD_Project
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            dgvPeople.DataSource = _dtPeople;
+
             cbFilterBy.Items.Add("");
             cbFilterBy.Items.AddRange(columnsToKeep);
+            cbFilterBy.SelectedIndex = 0;
             LoadColumnTypes();
-            RefreshForm();
+            dgvPeople.DataSource = _dtPeople;
         }
 
 
@@ -54,46 +60,28 @@ namespace DVLD_Project
             }
         }
 
-        private void RefreshForm()
+
+        private void RefreshPeople()
         {
-            textBox1.Visible = !string.IsNullOrEmpty(cbFilterBy.Text);
-            RefreshPeopleDataGridView();
+            _dtPeople = clsPerson.GetAll().DefaultView.ToTable(false, columnsToKeep);
         }
 
-        private void RefreshPeopleDataGridView()
+        private void ApplyFilter()
         {
-            DataTable dt = clsPerson.GetAll();
-
             string filterBy = cbFilterBy.Text;
 
-            foreach (DataColumn col in dt.Columns.OfType<DataColumn>().ToList())
+            string value = textBox1.Text.Trim();
+
+            if (filterBy == "" || string.IsNullOrEmpty(value))
             {
-                if (!columnsToKeep.Contains(col.ColumnName))
-                {
-                    dt.Columns.Remove(col);
-                }
+                _dtPeople.DefaultView.RowFilter = "";
+                return;
             }
 
-
-            if (!string.IsNullOrEmpty(filterBy) && !string.IsNullOrEmpty(textBox1.Text))
-            {
-                DataTable dtAfterFilter = dt.Clone();
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    if (row[filterBy].ToString() == textBox1.Text)
-                    {
-                        dtAfterFilter.ImportRow(row);
-                    }
-                }
-
-                dgvPeople.DataSource = dtAfterFilter;
-
-            }
+            if (filterBy == columnsToKeep[0])
+                _dtPeople.DefaultView.RowFilter = string.Format("[{0}] = {1}", filterBy, value);
             else
-            {
-                dgvPeople.DataSource = dt;
-            }
+                _dtPeople.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", filterBy, value);
         }
 
 
@@ -122,7 +110,7 @@ namespace DVLD_Project
             if (dgvPeople.SelectedRows.Count == 0)
                 return;
 
-            int personId = Convert.ToInt32(dgvPeople.CurrentRow.Cells["PersonID"].Value);
+            int personId = Convert.ToInt32(dgvPeople.CurrentRow.Cells[0].Value);
 
             OpenUpdatePersonForm(personId);
         }
@@ -154,17 +142,7 @@ namespace DVLD_Project
                 MessageBox.Show("Delete Failed", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            RefreshForm();
-        }
-
-        private void sentEmailToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cms_Person_Opening(object sender, CancelEventArgs e)
-        {
-
+            RefreshPeople();
         }
 
         private void addPersonToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,34 +154,31 @@ namespace DVLD_Project
         {
             AddUpdatePerson form = new AddUpdatePerson();
             form.ShowDialog();
-            RefreshForm();
+            RefreshPeople();
         }
 
         private void OpenUpdatePersonForm(int personId)
         {
             AddUpdatePerson form = new AddUpdatePerson(personId);
             form.ShowDialog();
-            RefreshForm();
+            RefreshPeople();
         }
 
         private void personDetailsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int personId = Convert.ToInt32(dgvPeople.CurrentRow.Cells["PersonID"].Value);
-
-            PersonDetails form = new PersonDetails(personId);
-
-            form.ShowDialog();
+            new PersonDetails(Convert.ToInt32(dgvPeople.CurrentRow.Cells[0].Value)).ShowDialog();
         }
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
+            textBox1.Visible = cbFilterBy.Text != "";
             textBox1.Clear();
-            RefreshForm();
+            ApplyFilter();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            RefreshForm();
+            ApplyFilter();
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

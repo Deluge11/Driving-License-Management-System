@@ -20,7 +20,12 @@ namespace DVLD_Project
 {
     public partial class AddUpdatePerson : Form
     {
+        public delegate void DataBack(object sender, int personId);
+
+        public event DataBack OnDataBack;
+
         clsPerson Person = null;
+
 
         enum enMode { Add, Update }
         enum enGender { Male, Female }
@@ -38,7 +43,7 @@ namespace DVLD_Project
         {
             InitializeComponent();
 
-            Person = clsPerson.GetById(personId);
+            Person = clsPerson.Get(personId);
 
             if (Person == null)
             {
@@ -104,7 +109,7 @@ namespace DVLD_Project
 
             if (Person.ImagePath != null)
             {
-                pbPersonImage.ImageLocation = GetImageFullPath(Person.ImagePath);
+                pbPersonImage.ImageLocation = clsUtil.GetImageFullPath(Person.ImagePath);
             }
 
             ll_RemoveImage.Visible = Person.ImagePath != null;
@@ -157,7 +162,7 @@ namespace DVLD_Project
                 MessageBox.Show("Info Saved Successfully", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Mode = enMode.Update;
 
-                //DataBack?.Invoke(this, Person.PersonID);
+                OnDataBack?.Invoke(this, Person.PersonID);
             }
             else
             {
@@ -175,7 +180,7 @@ namespace DVLD_Project
                 {
                     try
                     {
-                        File.Delete(GetImageFullPath(Person.ImagePath));
+                        File.Delete(clsUtil.GetImageFullPath(Person.ImagePath));
                     }
                     catch (IOException)
                     {
@@ -304,11 +309,6 @@ namespace DVLD_Project
             {
                 pbPersonImage.Image = rbFemale.Checked ? Resources.Female_512 : Resources.Male_512;
             }
-        }
-
-        private string GetImageFullPath(string path)
-        {
-            return Path.Combine(clsSystemSettings.ImageFolderPath, path);
         }
 
         private void btn_close_Click(object sender, EventArgs e)
