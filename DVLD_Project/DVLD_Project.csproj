@@ -32,6 +32,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,26 +50,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddUpdatePerson.cs">
+    <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddUpdatePerson.Designer.cs">
+    <Compile Include="LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\AddUpdatePerson.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="People\AddUpdatePerson.Designer.cs">
       <DependentUpon>AddUpdatePerson.cs</DependentUpon>
     </Compile>
-    <Compile Include="FindPersonForm.cs">
+    <Compile Include="People\FindPersonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FindPersonForm.Designer.cs">
+    <Compile Include="People\FindPersonForm.Designer.cs">
       <DependentUpon>FindPersonForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalClasses\clsFormat.cs" />
     <Compile Include="GlobalClasses\clsGlobal.cs" />
     <Compile Include="GlobalClasses\clsSystemSettings.cs" />
     <Compile Include="GlobalClasses\clsValidatoin.cs" />
-    <Compile Include="PersonDetails.cs">
+    <Compile Include="People\PersonDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PersonDetails.Designer.cs">
+    <Compile Include="People\PersonDetails.Designer.cs">
       <DependentUpon>PersonDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="HomeForm.cs">
@@ -74,40 +84,43 @@
     <Compile Include="HomeForm.Designer.cs">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PeopleForm.cs">
+    <Compile Include="People\PeopleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PeopleForm.Designer.cs">
+    <Compile Include="People\PeopleForm.Designer.cs">
       <DependentUpon>PeopleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="uc_PersonDetails.cs">
+    <Compile Include="People\uc_PersonDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uc_PersonDetails.Designer.cs">
+    <Compile Include="People\uc_PersonDetails.Designer.cs">
       <DependentUpon>uc_PersonDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalClasses\util.cs" />
-    <Compile Include="uc_PersonDetailsWithFilter.cs">
+    <Compile Include="People\uc_PersonDetailsWithFilter.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="uc_PersonDetailsWithFilter.Designer.cs">
+    <Compile Include="People\uc_PersonDetailsWithFilter.Designer.cs">
       <DependentUpon>uc_PersonDetailsWithFilter.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddUpdatePerson.resx">
+    <EmbeddedResource Include="LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\AddUpdatePerson.resx">
       <DependentUpon>AddUpdatePerson.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FindPersonForm.resx">
+    <EmbeddedResource Include="People\FindPersonForm.resx">
       <DependentUpon>FindPersonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PersonDetails.resx">
+    <EmbeddedResource Include="People\PersonDetails.resx">
       <DependentUpon>PersonDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PeopleForm.resx">
+    <EmbeddedResource Include="People\PeopleForm.resx">
       <DependentUpon>PeopleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -120,10 +133,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="uc_PersonDetails.resx">
+    <EmbeddedResource Include="People\uc_PersonDetails.resx">
       <DependentUpon>uc_PersonDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="uc_PersonDetailsWithFilter.resx">
+    <EmbeddedResource Include="People\uc_PersonDetailsWithFilter.resx">
       <DependentUpon>uc_PersonDetailsWithFilter.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -489,6 +502,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Written Test 512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Users\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

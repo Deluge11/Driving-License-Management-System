@@ -353,9 +353,13 @@ namespace DVLD_Data
             try
             {
                 sqlConnection.Open();
-                isInserted = true;
                 object result = sqlCommand.ExecuteScalar();
-                personId = result == null || result == DBNull.Value ? 0 : Convert.ToInt32(result);
+
+                if (result != null && result != DBNull.Value)
+                {
+                    personId = Convert.ToInt32(result);
+                    isInserted = true;
+                }
             }
             catch (Exception ex)
             {

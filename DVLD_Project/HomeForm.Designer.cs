@@ -32,6 +32,9 @@
             this.بToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.peopleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applicationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.driversToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.accountSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,10 +45,13 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.بToolStripMenuItem,
             this.peopleToolStripMenuItem,
-            this.applicationsToolStripMenuItem});
+            this.applicationsToolStripMenuItem,
+            this.driversToolStripMenuItem,
+            this.usersToolStripMenuItem,
+            this.accountSettingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1099, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(1099, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -68,6 +74,24 @@
             this.applicationsToolStripMenuItem.Size = new System.Drawing.Size(126, 29);
             this.applicationsToolStripMenuItem.Text = "Applications";
             this.applicationsToolStripMenuItem.Click += new System.EventHandler(this.applicationsToolStripMenuItem_Click);
+            // 
+            // driversToolStripMenuItem
+            // 
+            this.driversToolStripMenuItem.Name = "driversToolStripMenuItem";
+            this.driversToolStripMenuItem.Size = new System.Drawing.Size(83, 29);
+            this.driversToolStripMenuItem.Text = "Drivers";
+            // 
+            // usersToolStripMenuItem
+            // 
+            this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(71, 29);
+            this.usersToolStripMenuItem.Text = "Users";
+            // 
+            // accountSettingsToolStripMenuItem
+            // 
+            this.accountSettingsToolStripMenuItem.Name = "accountSettingsToolStripMenuItem";
+            this.accountSettingsToolStripMenuItem.Size = new System.Drawing.Size(162, 29);
+            this.accountSettingsToolStripMenuItem.Text = "Account Settings";
             // 
             // HomeForm
             // 
@@ -92,6 +116,9 @@
         private System.Windows.Forms.ToolStripMenuItem بToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem peopleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applicationsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem driversToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem accountSettingsToolStripMenuItem;
     }
 }
 
