@@ -137,6 +137,33 @@ namespace DVLD_Data
             return isFound;
         }
 
+        public static bool IsUser(int id)
+        {
+            bool isFound = false;
+            string query = @"SELECT 1 FROM Users WHERE PersonID = @Id";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@Id", id);
+
+            try
+            {
+                sqlConnection.Open();
+                isFound = sqlCommand.ExecuteScalar() != null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+        }
+
         public static bool Exists(string nationalNo)
         {
             bool isFound = false;

@@ -62,6 +62,7 @@ namespace DVLD_Project
             if (!user.IsActive)
             {
                 MessageBox.Show("This User is not Active", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             if (cb_RemeberMe.Checked)

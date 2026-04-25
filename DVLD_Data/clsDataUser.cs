@@ -175,8 +175,8 @@ INNER JOIN People P ON P.PersonID = U.PersonID";
             bool isUpdated = false;
             string query = @"
                 UPDATE Users SET
-                UserName = @UserName
-                Password = @Password
+                UserName = @UserName,
+                Password = @Password,
                 IsActive = @IsActive
                 WHERE UserID = @UserID";
 
@@ -212,7 +212,7 @@ INNER JOIN People P ON P.PersonID = U.PersonID";
 
             bool isInserted = false;
             string query = @"
-                INSERT INTO People
+                INSERT INTO Users
                 (
                 PersonID,
                 UserName,
@@ -221,9 +221,9 @@ INNER JOIN People P ON P.PersonID = U.PersonID";
                 )
                 VALUES
                 (
-                @PersonID
-                @UserName
-                @Password
+                @PersonID,
+                @UserName,
+                @Password,
                 @IsActive
                 );
                 SELECT SCOPE_IDENTITY();";

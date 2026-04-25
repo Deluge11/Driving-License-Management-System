@@ -24,7 +24,7 @@ namespace DVLD_Project
 
         private void uc_PersonDetails_Load(object sender, EventArgs e)
         {
-
+            RefreshForm();
         }
 
         public void LoadPerson(int personId)

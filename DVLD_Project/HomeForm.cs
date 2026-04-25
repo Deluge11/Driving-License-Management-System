@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DVLD_Project.Users;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -36,6 +37,22 @@ namespace DVLD_Project
         }
 
         private void applicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UsersManageForm form = new UsersManageForm();
+            form.ShowDialog();
+        }
+
+        private void accountSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

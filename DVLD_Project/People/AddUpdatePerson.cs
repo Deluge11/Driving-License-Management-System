@@ -69,15 +69,7 @@ namespace DVLD_Project
             dtpBirthOfDate.MaxDate = DateTime.Now.AddYears(-18);
             dtpBirthOfDate.MinDate = DateTime.Now.AddYears(-90);
             dtpBirthOfDate.Value = dtpBirthOfDate.MaxDate;
-            if (Mode == enMode.Add)
-            {
-                lblTitle.Text = "Add New Person";
-
-            }
-            else
-            {
-                lblTitle.Text = "Edit Person";
-            }
+           
 
             rbMale.Checked = true;
 
@@ -88,6 +80,16 @@ namespace DVLD_Project
         }
         private void _LoadData()
         {
+            if (Mode == enMode.Add)
+            {
+                lblTitle.Text = "Add New Person";
+
+            }
+            else
+            {
+                lblTitle.Text = "Edit Person";
+            }
+
             lblPersonId.Text = Person.PersonID.ToString();
             tbNationalNo.Text = Person.NationalNo;
             tbAddress.Text = Person.Address;

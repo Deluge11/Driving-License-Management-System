@@ -34,10 +34,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_AddPerson = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.gb_Filter = new System.Windows.Forms.GroupBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.gb_Filter.SuspendLayout();
             this.SuspendLayout();
             // 
             // uc_PersonDetails
             // 
+            this.uc_PersonDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.uc_PersonDetails.Location = new System.Drawing.Point(3, 78);
             this.uc_PersonDetails.Name = "uc_PersonDetails";
             this.uc_PersonDetails.Size = new System.Drawing.Size(685, 340);
@@ -46,7 +50,7 @@
             // cbFilterBy
             // 
             this.cbFilterBy.FormattingEnabled = true;
-            this.cbFilterBy.Location = new System.Drawing.Point(84, 37);
+            this.cbFilterBy.Location = new System.Drawing.Point(17, 25);
             this.cbFilterBy.Name = "cbFilterBy";
             this.cbFilterBy.Size = new System.Drawing.Size(121, 28);
             this.cbFilterBy.TabIndex = 1;
@@ -54,7 +58,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(224, 38);
+            this.textBox1.Location = new System.Drawing.Point(154, 25);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 26);
             this.textBox1.TabIndex = 2;
@@ -62,7 +66,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 41);
+            this.label1.Location = new System.Drawing.Point(16, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 20);
             this.label1.TabIndex = 3;
@@ -82,26 +86,38 @@
             // button2
             // 
             this.button2.Image = global::DVLD_Project.Properties.Resources.SearchPerson;
-            this.button2.Location = new System.Drawing.Point(335, 30);
+            this.button2.Location = new System.Drawing.Point(260, 17);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(56, 42);
             this.button2.TabIndex = 5;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // gb_Filter
+            // 
+            this.gb_Filter.Controls.Add(this.cbFilterBy);
+            this.gb_Filter.Controls.Add(this.button2);
+            this.gb_Filter.Controls.Add(this.textBox1);
+            this.gb_Filter.Location = new System.Drawing.Point(88, 3);
+            this.gb_Filter.Name = "gb_Filter";
+            this.gb_Filter.Size = new System.Drawing.Size(343, 69);
+            this.gb_Filter.TabIndex = 6;
+            this.gb_Filter.TabStop = false;
+            this.gb_Filter.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
             // uc_PersonDetailsWithFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.gb_Filter);
             this.Controls.Add(this.btn_AddPerson);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.cbFilterBy);
             this.Controls.Add(this.uc_PersonDetails);
             this.Name = "uc_PersonDetailsWithFilter";
             this.Size = new System.Drawing.Size(699, 421);
             this.Load += new System.EventHandler(this.UserControl1_Load);
+            this.gb_Filter.ResumeLayout(false);
+            this.gb_Filter.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -115,5 +131,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_AddPerson;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox gb_Filter;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

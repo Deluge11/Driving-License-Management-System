@@ -139,6 +139,12 @@ namespace DVLD_Business
         {
             return clsDataPeople.Exists(nationalNo);
         }
+
+        public bool IsUser()
+        {
+            return clsDataPeople.IsUser(PersonID);
+        }
+
         public static DataTable GetAll()
         {
             return clsDataPeople.GetAll();

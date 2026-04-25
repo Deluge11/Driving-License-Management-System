@@ -13,6 +13,16 @@ namespace DVLD_Project
 {
     public partial class uc_PersonDetailsWithFilter : UserControl
     {
+        public event Action<int> OnPersonSelected;
+        protected virtual void PersonSelected(int PersonID)
+        {
+            Action<int> handler = OnPersonSelected;
+            if (handler != null)
+            {
+                handler(PersonID);
+            }
+        }
+
         public int PersonId
         {
             get
@@ -26,6 +36,20 @@ namespace DVLD_Project
             get
             {
                 return uc_PersonDetails.Person;
+            }
+        }
+
+        private bool _FilterEnabled = true;
+        public bool FilterEnabled
+        {
+            get
+            {
+                return _FilterEnabled;
+            }
+            set
+            {
+                _FilterEnabled = value;
+                gb_Filter.Enabled = _FilterEnabled;
             }
         }
 
@@ -58,6 +82,36 @@ namespace DVLD_Project
         {
             cbFilterBy.Items.Add("Person Id");
             cbFilterBy.Items.Add("National No");
+        }
+
+        public void LoadPersonInfo(int PersonID)
+        {
+
+            cbFilterBy.SelectedIndex = 0;
+            textBox1.Text = PersonID.ToString();
+            FindNow();
+
+        }
+
+        private void FindNow()
+        {
+            switch (cbFilterBy.Text)
+            {
+                case "Person Id":
+                    uc_PersonDetails.LoadPerson(int.Parse(textBox1.Text));
+
+                    break;
+
+                case "National No.":
+                    uc_PersonDetails.LoadPerson(textBox1.Text);
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (OnPersonSelected != null && FilterEnabled)
+                OnPersonSelected(uc_PersonDetails.Person.PersonID);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -112,6 +166,11 @@ namespace DVLD_Project
             {
                 _SetFilterByNationalNo();
             }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
