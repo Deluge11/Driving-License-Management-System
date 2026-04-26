@@ -31,18 +31,18 @@
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_Users = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.cb_FilterBy = new System.Windows.Forms.ComboBox();
-            this.tb_FilterText = new System.Windows.Forms.TextBox();
-            this.btn_AddUser = new System.Windows.Forms.Button();
-            this.cb_Active = new System.Windows.Forms.ComboBox();
-            this.btn_ApplyFilter = new System.Windows.Forms.Button();
             this.cms_Users = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showDetailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addUserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.changePasswordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cb_FilterBy = new System.Windows.Forms.ComboBox();
+            this.tb_FilterText = new System.Windows.Forms.TextBox();
+            this.btn_AddUser = new System.Windows.Forms.Button();
+            this.cb_Active = new System.Windows.Forms.ComboBox();
+            this.btn_ApplyFilter = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Users)).BeginInit();
             this.cms_Users.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +68,54 @@
             this.dgv_Users.Size = new System.Drawing.Size(855, 299);
             this.dgv_Users.TabIndex = 1;
             this.dgv_Users.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // cms_Users
+            // 
+            this.cms_Users.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.cms_Users.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showDetailsToolStripMenuItem,
+            this.addUserToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.changePasswordToolStripMenuItem});
+            this.cms_Users.Name = "cms_Users";
+            this.cms_Users.Size = new System.Drawing.Size(241, 197);
+            this.cms_Users.Opening += new System.ComponentModel.CancelEventHandler(this.cmsUsers_Opening);
+            // 
+            // showDetailsToolStripMenuItem
+            // 
+            this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.showDetailsToolStripMenuItem.Text = "Show Details";
+            this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
+            // 
+            // addUserToolStripMenuItem
+            // 
+            this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.addUserToolStripMenuItem.Text = "Add";
+            this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.editToolStripMenuItem.Text = "Edit";
+            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // changePasswordToolStripMenuItem
+            // 
+            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.changePasswordToolStripMenuItem.Text = "Change Password";
+            this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
             // 
             // label2
             // 
@@ -125,52 +173,6 @@
             this.btn_ApplyFilter.Text = "Apply";
             this.btn_ApplyFilter.UseVisualStyleBackColor = true;
             this.btn_ApplyFilter.Click += new System.EventHandler(this.btn_ApplyFilter_Click);
-            // 
-            // cms_Users
-            // 
-            this.cms_Users.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.cms_Users.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showDetailsToolStripMenuItem,
-            this.addUserToolStripMenuItem,
-            this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.changePasswordToolStripMenuItem});
-            this.cms_Users.Name = "cms_Users";
-            this.cms_Users.Size = new System.Drawing.Size(225, 164);
-            this.cms_Users.Opening += new System.ComponentModel.CancelEventHandler(this.cmsUsers_Opening);
-            // 
-            // showDetailsToolStripMenuItem
-            // 
-            this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
-            this.showDetailsToolStripMenuItem.Text = "Show Details";
-            // 
-            // addUserToolStripMenuItem
-            // 
-            this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
-            this.addUserToolStripMenuItem.Text = "Add";
-            this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
-            this.editToolStripMenuItem.Text = "Edit";
-            this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
-            // 
-            // changePasswordToolStripMenuItem
-            // 
-            this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
-            this.changePasswordToolStripMenuItem.Text = "Change Password";
             // 
             // UsersManageForm
             // 

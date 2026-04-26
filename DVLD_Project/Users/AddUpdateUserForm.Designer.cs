@@ -88,7 +88,8 @@
             // 
             // uc_PersonDetails
             // 
-            this.uc_PersonDetails.Location = new System.Drawing.Point(77, 6);
+            this.uc_PersonDetails.FilterEnabled = true;
+            this.uc_PersonDetails.Location = new System.Drawing.Point(81, 6);
             this.uc_PersonDetails.Name = "uc_PersonDetails";
             this.uc_PersonDetails.Size = new System.Drawing.Size(699, 421);
             this.uc_PersonDetails.TabIndex = 0;

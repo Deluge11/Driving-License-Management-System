@@ -1,4 +1,5 @@
-﻿using DVLD_Business;
+﻿using DVLD.Classes;
+using DVLD_Business;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,8 @@ namespace DVLD_Project.Users
 {
     public partial class UsersManageForm : Form
     {
+        enum enActiveFilter { No = 0, Yes = 1, All = -1 }
+
         static DataTable Users = clsUser.GetAll();
         DataTable FilteredUsers = Users.DefaultView.ToTable(false, ColumnsToKeep);
 
@@ -31,33 +34,67 @@ namespace DVLD_Project.Users
 
         private void ApplyFilter()
         {
-            if (cb_FilterBy.Text == "None")
+            switch (cb_FilterBy.Text)
             {
-                FilteredUsers.DefaultView.RowFilter = "";
+                case "None":
+                    ResetFilter();
+                    break;
+
+                case "IsActive":
+
+                    if (GetActive() == enActiveFilter.All)
+                    {
+                        ResetFilter();
+                    }
+                    else
+                    {
+                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, (int)GetActive());
+                    }
+                    break;
+
+                case "PersonID":
+                    if (string.IsNullOrEmpty(tb_FilterText.Text.Trim()))
+                    {
+                        ResetFilter();
+                    }
+                    else
+                    {
+                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, tb_FilterText.Text.Trim());
+                    }
+
+                    break;
+
+                case "UserID":
+                    if (string.IsNullOrEmpty(tb_FilterText.Text.Trim()))
+                    {
+                        ResetFilter();
+                    }
+                    else
+                    {
+                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, tb_FilterText.Text.Trim());
+                    }
+                    break;
+
+                default:
+                    if (string.IsNullOrEmpty(tb_FilterText.Text.Trim()))
+                    {
+                        ResetFilter();
+                    }
+                    else
+                    {
+                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", cb_FilterBy.Text, tb_FilterText.Text.Trim());
+                    }
+                    break;
+
             }
 
-            if (cb_FilterBy.Text == "IsActive")
-            {
-                FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1} OR {1} = -1", cb_FilterBy.Text, GetActiveDigit());
-                return;
-            }
 
-            if (cb_FilterBy.Text == "PersonID" || cb_FilterBy.Text == "UserID")
-            {
-                FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, tb_FilterText.Text.Trim());
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(tb_FilterText.Text.Trim()))
-                {
-                    FilteredUsers.DefaultView.RowFilter = "";
-                }
-                else
-                {
-                    FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", cb_FilterBy.Text, tb_FilterText.Text.Trim());
-                }
-            }
 
+        }
+
+        private void ResetFilter()
+        {
+            FilteredUsers.DefaultView.RowFilter = "";
         }
 
         private void ResetUsers()
@@ -92,16 +129,16 @@ namespace DVLD_Project.Users
             cb_Active.Items.Add("No");
         }
 
-        private short GetActiveDigit()
+        private enActiveFilter GetActive()
         {
             switch (cb_Active.Text)
             {
                 case "Yes":
-                    return 1;
+                    return enActiveFilter.Yes;
                 case "No":
-                    return 0;
+                    return enActiveFilter.No;
                 default:
-                    return -1;
+                    return enActiveFilter.All;
             }
         }
 
@@ -121,21 +158,26 @@ namespace DVLD_Project.Users
         {
             if (cb_FilterBy.Text == "None")
             {
+                btn_ApplyFilter.Visible = false;
                 cb_Active.Visible = false;
                 tb_FilterText.Visible = false;
             }
             else if (cb_FilterBy.Text == "IsActive")
             {
+                btn_ApplyFilter.Visible = true;
                 tb_FilterText.Visible = false;
                 cb_Active.Visible = true;
                 cb_Active.SelectedIndex = 0;
             }
             else
             {
+                btn_ApplyFilter.Visible = true;
+                tb_FilterText.Visible = true;
                 cb_Active.Visible = false;
                 tb_FilterText.Text = "";
-                tb_FilterText.Visible = true;
             }
+
+            ApplyFilter();
         }
 
         private void cb_Active_SelectedIndexChanged(object sender, EventArgs e)
@@ -154,11 +196,7 @@ namespace DVLD_Project.Users
 
         private void tb_FilterText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string filterBy = cb_FilterBy.Text;
-            if (filterBy == "None")
-                return;
-
-            if (filterBy == "PersonID" || filterBy == "UserID")
+            if (cb_FilterBy.Text == "PersonID" || cb_FilterBy.Text == "UserID")
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
         }
 
@@ -169,7 +207,9 @@ namespace DVLD_Project.Users
 
         private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            AddUpdateUserForm form = new AddUpdateUserForm();
+            form.ShowDialog();
+            ResetUsers();
         }
 
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
@@ -181,7 +221,7 @@ namespace DVLD_Project.Users
             }
             else
             {
-                MessageBox.Show("User Deleted Failed ", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("User Deleted Failed ", "Done", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -192,6 +232,19 @@ namespace DVLD_Project.Users
             ResetUsers();
         }
 
+        private void showDetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUserDetails form = new frmUserDetails();
+            form.LoadUser((int)dgv_Users.CurrentRow.Cells[0].Value);
+            form.ShowDialog();
+            ResetUsers();
+        }
 
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmChangePassword form = new frmChangePassword();
+            form.LoadUser((int)dgv_Users.CurrentRow.Cells[0].Value);
+            form.ShowDialog();
+        }
     }
 }

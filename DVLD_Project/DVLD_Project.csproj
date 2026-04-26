@@ -111,6 +111,24 @@
     <Compile Include="Users\AddUpdateUserForm.Designer.cs">
       <DependentUpon>AddUpdateUserForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Users\frmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\frmChangePassword.Designer.cs">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\frmUserDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\frmUserDetails.Designer.cs">
+      <DependentUpon>frmUserDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\uc_UserDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Users\uc_UserDetail.Designer.cs">
+      <DependentUpon>uc_UserDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Users\UsersManageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -153,6 +171,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Users\AddUpdateUserForm.resx">
       <DependentUpon>AddUpdateUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\frmChangePassword.resx">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\frmUserDetails.resx">
+      <DependentUpon>frmUserDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\uc_UserDetail.resx">
+      <DependentUpon>uc_UserDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\UsersManageForm.resx">
       <DependentUpon>UsersManageForm.cs</DependentUpon>

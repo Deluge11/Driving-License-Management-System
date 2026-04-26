@@ -58,7 +58,8 @@ namespace DVLD_Project.Users
                 tb_ConfirmPassword.Text = User.Password;
                 cb_IsActive.Checked = User.IsActive;
                 uc_PersonDetails.LoadPersonInfo(User.PersonID);
-                uc_PersonDetails.Enabled = false;
+                uc_PersonDetails.FilterEnabled = false;
+                uc_PersonDetails.AddPersonEnabled = false;
             }
         }
 

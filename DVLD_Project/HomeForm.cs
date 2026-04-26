@@ -1,4 +1,6 @@
-﻿using DVLD_Project.Users;
+﻿using DVLD.Classes;
+using DVLD_Project.Classes;
+using DVLD_Project.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,7 +45,7 @@ namespace DVLD_Project
 
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -55,6 +57,20 @@ namespace DVLD_Project
         private void accountSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void currentUserInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUserDetails form = new frmUserDetails();
+            form.LoadUser(clsGlobal.CurrentUser.UserID);
+            form.ShowDialog();
+        }
+
+        private void changePasswordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmChangePassword form = new frmChangePassword();
+            form.LoadUser(clsGlobal.CurrentUser.UserID);
+            form.ShowDialog();
         }
     }
 }

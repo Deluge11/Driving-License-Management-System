@@ -53,6 +53,20 @@ namespace DVLD_Project
             }
         }
 
+        private bool _AddPersonEnabled = true;
+        public bool AddPersonEnabled
+        {
+            get
+            {
+                return _AddPersonEnabled;
+            }
+            set
+            {
+                _AddPersonEnabled = value;
+                btn_AddPerson.Enabled = _AddPersonEnabled;
+            }
+        }
+
         enum enMode { ById, ByNationalNo }
         enMode enFilterMode;
         public uc_PersonDetailsWithFilter()

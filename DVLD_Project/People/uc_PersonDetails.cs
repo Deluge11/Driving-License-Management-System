@@ -94,6 +94,7 @@ namespace DVLD_Project
                 AddUpdatePerson form = new AddUpdatePerson(Person.PersonID);
                 form.ShowDialog();
                 RefreshForm();
+                LoadPerson(Person.PersonID);
             }
             else
             {
