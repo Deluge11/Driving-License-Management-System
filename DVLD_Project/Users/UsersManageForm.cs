@@ -16,8 +16,7 @@ namespace DVLD_Project.Users
     {
         enum enActiveFilter { No = 0, Yes = 1, All = -1 }
 
-        static DataTable Users = clsUser.GetAll();
-        DataTable FilteredUsers = Users.DefaultView.ToTable(false, ColumnsToKeep);
+        DataTable dtUsers;
 
         static string[] ColumnsToKeep = {
                 "UserID",
@@ -48,7 +47,7 @@ namespace DVLD_Project.Users
                     }
                     else
                     {
-                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, (int)GetActive());
+                        dtUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, (int)GetActive());
                     }
                     break;
 
@@ -59,7 +58,7 @@ namespace DVLD_Project.Users
                     }
                     else
                     {
-                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, tb_FilterText.Text.Trim());
+                        dtUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, tb_FilterText.Text.Trim());
                     }
 
                     break;
@@ -71,7 +70,7 @@ namespace DVLD_Project.Users
                     }
                     else
                     {
-                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, tb_FilterText.Text.Trim());
+                        dtUsers.DefaultView.RowFilter = string.Format("[{0}] = {1}", cb_FilterBy.Text, tb_FilterText.Text.Trim());
                     }
                     break;
 
@@ -82,7 +81,7 @@ namespace DVLD_Project.Users
                     }
                     else
                     {
-                        FilteredUsers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", cb_FilterBy.Text, tb_FilterText.Text.Trim());
+                        dtUsers.DefaultView.RowFilter = string.Format("[{0}] LIKE '{1}%'", cb_FilterBy.Text, tb_FilterText.Text.Trim());
                     }
                     break;
 
@@ -94,24 +93,22 @@ namespace DVLD_Project.Users
 
         private void ResetFilter()
         {
-            FilteredUsers.DefaultView.RowFilter = "";
+            dtUsers.DefaultView.RowFilter = "";
         }
 
         private void ResetUsers()
         {
-            Users = clsUser.GetAll();
-            FilteredUsers = Users.DefaultView.ToTable(false, ColumnsToKeep);
-            dgv_Users.DataSource = FilteredUsers;
+            dtUsers = clsUser.GetAll().DefaultView.ToTable(false, ColumnsToKeep);
+            dgv_Users.DataSource = dtUsers;
         }
 
         private void UsersManageForm_Load(object sender, EventArgs e)
         {
-            dgv_Users.DataSource = FilteredUsers;
+            ResetUsers();
             FillActiveComboBox();
             FillFilterComboBox();
             cb_FilterBy.SelectedIndex = 0;
             cb_Active.SelectedIndex = 0;
-
             ApplyFilter();
 
         }
@@ -140,11 +137,6 @@ namespace DVLD_Project.Users
                 default:
                     return enActiveFilter.All;
             }
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void btn_AddUser_Click(object sender, EventArgs e)
@@ -180,15 +172,6 @@ namespace DVLD_Project.Users
             ApplyFilter();
         }
 
-        private void cb_Active_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void tb_FilterText_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_ApplyFilter_Click(object sender, EventArgs e)
         {
             ApplyFilter();
@@ -198,11 +181,6 @@ namespace DVLD_Project.Users
         {
             if (cb_FilterBy.Text == "PersonID" || cb_FilterBy.Text == "UserID")
                 e.Handled = !char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar);
-        }
-
-        private void cmsUsers_Opening(object sender, CancelEventArgs e)
-        {
-
         }
 
         private void addUserToolStripMenuItem_Click(object sender, EventArgs e)
@@ -246,5 +224,6 @@ namespace DVLD_Project.Users
             form.LoadUser((int)dgv_Users.CurrentRow.Cells[0].Value);
             form.ShowDialog();
         }
+
     }
 }

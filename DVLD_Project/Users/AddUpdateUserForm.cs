@@ -68,31 +68,6 @@ namespace DVLD_Project.Users
             SetFormValues();
         }
 
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tp_UserInfo_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void uc_PersonDetailsWithFilter1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tb_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_Next_Click(object sender, EventArgs e)
         {
             if (!CanGoNext())
@@ -176,11 +151,6 @@ namespace DVLD_Project.Users
                 errorProvider1.SetError(tb, "");
                 e.Cancel = false;
             }
-        }
-
-        private void tb_ConfirmPassword_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void tb_ConfirmPassword_Validating(object sender, CancelEventArgs e)

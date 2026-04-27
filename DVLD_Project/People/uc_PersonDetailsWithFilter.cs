@@ -67,8 +67,6 @@ namespace DVLD_Project
             }
         }
 
-        enum enMode { ById, ByNationalNo }
-        enMode enFilterMode;
         public uc_PersonDetailsWithFilter()
         {
             InitializeComponent();
@@ -77,19 +75,7 @@ namespace DVLD_Project
         private void UserControl1_Load(object sender, EventArgs e)
         {
             _FillComboBox();
-            _SetFilterByNationalNo();
-        }
-
-        private void _SetFilterByPersonId()
-        {
-            cbFilterBy.SelectedIndex = cbFilterBy.FindString("Person Id");
-            enFilterMode = enMode.ById;
-        }
-
-        private void _SetFilterByNationalNo()
-        {
-            cbFilterBy.SelectedIndex = cbFilterBy.FindString("National No");
-            enFilterMode = enMode.ByNationalNo;
+            cbFilterBy.SelectedIndex = 1;
         }
 
         private void _FillComboBox()
@@ -100,11 +86,9 @@ namespace DVLD_Project
 
         public void LoadPersonInfo(int PersonID)
         {
-
             cbFilterBy.SelectedIndex = 0;
             textBox1.Text = PersonID.ToString();
             FindNow();
-
         }
 
         private void FindNow()
@@ -116,7 +100,7 @@ namespace DVLD_Project
 
                     break;
 
-                case "National No.":
+                case "National No":
                     uc_PersonDetails.LoadPerson(textBox1.Text);
                     break;
 
@@ -130,35 +114,14 @@ namespace DVLD_Project
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string text = textBox1.Text.Trim();
-
-            if (string.IsNullOrEmpty(text))
-            {
-                return;
-            }
-
-            if (enFilterMode == enMode.ById)
-            {
-                if (int.TryParse(text, out int personId))
-                {
-                    uc_PersonDetails.LoadPerson(personId);
-                }
-                else
-                {
-                    // Message Box Error
-                }
-            }
-            else
-            {
-                uc_PersonDetails.LoadPerson(text);
-            }
+            FindNow();
         }
 
         private void Load_DataBack(object sender, int personId)
         {
             uc_PersonDetails.LoadPerson(personId);
-            _SetFilterByPersonId();
             textBox1.Text = personId.ToString();
+            cbFilterBy.SelectedIndex = 0;
         }
 
         private void btn_AddPerson_Click(object sender, EventArgs e)
@@ -172,14 +135,7 @@ namespace DVLD_Project
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbFilterBy.Text == "Person Id")
-            {
-                _SetFilterByPersonId();
-            }
-            else
-            {
-                _SetFilterByNationalNo();
-            }
+          
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)

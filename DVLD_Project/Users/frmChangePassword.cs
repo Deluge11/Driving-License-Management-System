@@ -33,16 +33,7 @@ namespace DVLD_Project.Users
         public void LoadUser(int userId)
         {
             User = clsUser.Get(userId);
-
-            if (User == null)
-            {
-                uc_UserDetail1.LoadUser(-1);
-
-            }
-            else
-            {
-                uc_UserDetail1.LoadUser(userId);
-            }
+            uc_UserDetail1.LoadUser(userId);
         }
 
         private void btn_Save_Click(object sender, EventArgs e)

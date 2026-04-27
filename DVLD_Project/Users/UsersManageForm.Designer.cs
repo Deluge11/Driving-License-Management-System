@@ -56,6 +56,7 @@
             this.label1.Size = new System.Drawing.Size(288, 52);
             this.label1.TabIndex = 0;
             this.label1.Text = "Manage User";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // dgv_Users
             // 
@@ -79,41 +80,41 @@
             this.deleteToolStripMenuItem,
             this.changePasswordToolStripMenuItem});
             this.cms_Users.Name = "cms_Users";
-            this.cms_Users.Size = new System.Drawing.Size(241, 197);
+            this.cms_Users.Size = new System.Drawing.Size(225, 164);
             this.cms_Users.Opening += new System.ComponentModel.CancelEventHandler(this.cmsUsers_Opening);
             // 
             // showDetailsToolStripMenuItem
             // 
             this.showDetailsToolStripMenuItem.Name = "showDetailsToolStripMenuItem";
-            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.showDetailsToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.showDetailsToolStripMenuItem.Text = "Show Details";
             this.showDetailsToolStripMenuItem.Click += new System.EventHandler(this.showDetailsToolStripMenuItem_Click);
             // 
             // addUserToolStripMenuItem
             // 
             this.addUserToolStripMenuItem.Name = "addUserToolStripMenuItem";
-            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.addUserToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.addUserToolStripMenuItem.Text = "Add";
             this.addUserToolStripMenuItem.Click += new System.EventHandler(this.addUserToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // changePasswordToolStripMenuItem
             // 
             this.changePasswordToolStripMenuItem.Name = "changePasswordToolStripMenuItem";
-            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.changePasswordToolStripMenuItem.Size = new System.Drawing.Size(224, 32);
             this.changePasswordToolStripMenuItem.Text = "Change Password";
             this.changePasswordToolStripMenuItem.Click += new System.EventHandler(this.changePasswordToolStripMenuItem_Click);
             // 

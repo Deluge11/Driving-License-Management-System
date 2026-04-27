@@ -56,7 +56,7 @@ INNER JOIN People P ON P.PersonID = U.PersonID";
             return dt;
         }
 
-        public static bool GetById(int id, out stUserInfo info)
+        public static bool GetByUserId(int id, out stUserInfo info)
         {
             bool isFound = false;
             string query = @"SELECT * FROM Users WHERE UserID = @UserID";
@@ -99,6 +99,50 @@ INNER JOIN People P ON P.PersonID = U.PersonID";
             return isFound;
         }
 
+        public static bool GetByPersonId(int id, out stUserInfo info)
+        {
+            bool isFound = false;
+            string query = @"SELECT * FROM Users WHERE PersonID = @PersonID";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@PersonID", id);
+
+            info = new stUserInfo();
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    info.UserID = (int)reader["UserID"];
+                    info.PersonID = (int)reader["PersonID"];
+                    info.UserName = (string)reader["UserName"];
+                    info.Password = (string)reader["Password"];
+                    info.IsActive = (bool)reader["IsActive"];
+
+                    isFound = true;
+                }
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+        }
+
+
         public static bool Exists(int id)
         {
             bool isFound = false;
@@ -126,7 +170,7 @@ INNER JOIN People P ON P.PersonID = U.PersonID";
             return isFound;
         }
 
-        public static bool Get(string username, string password, out stUserInfo info)
+        public static bool GetByUsernameAndPassword(string username, string password, out stUserInfo info)
         {
             bool isFound = false;
             string query = "SELECT * FROM Users WHERE UserName = @UserName AND Password = @Password";

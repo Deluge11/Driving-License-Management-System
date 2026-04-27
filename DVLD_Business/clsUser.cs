@@ -50,7 +50,7 @@ namespace DVLD_Business
 
         public static clsUser Get(int id)
         {
-            if (clsDataUser.GetById(id, out stUserInfo info))
+            if (clsDataUser.GetByUserId(id, out stUserInfo info))
             {
                 return new clsUser(info);
             }
@@ -59,7 +59,7 @@ namespace DVLD_Business
 
         public static clsUser Get(string username, string password)
         {
-            if (clsDataUser.Get(username, password, out stUserInfo info))
+            if (clsDataUser.GetByUsernameAndPassword(username, password, out stUserInfo info))
             {
                 return new clsUser(info);
             }

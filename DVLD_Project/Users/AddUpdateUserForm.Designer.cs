@@ -84,16 +84,15 @@
             this.tp_PersonInfo.TabIndex = 0;
             this.tp_PersonInfo.Text = "Personal Info";
             this.tp_PersonInfo.UseVisualStyleBackColor = true;
-            this.tp_PersonInfo.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // uc_PersonDetails
             // 
+            this.uc_PersonDetails.AddPersonEnabled = true;
             this.uc_PersonDetails.FilterEnabled = true;
             this.uc_PersonDetails.Location = new System.Drawing.Point(81, 6);
             this.uc_PersonDetails.Name = "uc_PersonDetails";
             this.uc_PersonDetails.Size = new System.Drawing.Size(699, 421);
             this.uc_PersonDetails.TabIndex = 0;
-            this.uc_PersonDetails.Load += new System.EventHandler(this.uc_PersonDetailsWithFilter1_Load);
             this.uc_PersonDetails.Validating += new System.ComponentModel.CancelEventHandler(this.uc_PersonDetails_Validating);
             // 
             // tp_UserInfo
@@ -114,7 +113,6 @@
             this.tp_UserInfo.TabIndex = 1;
             this.tp_UserInfo.Text = "User Info";
             this.tp_UserInfo.UseVisualStyleBackColor = true;
-            this.tp_UserInfo.Click += new System.EventHandler(this.tp_UserInfo_Click);
             // 
             // lbl_UserId
             // 
@@ -153,7 +151,6 @@
             this.tb_ConfirmPassword.Size = new System.Drawing.Size(100, 26);
             this.tb_ConfirmPassword.TabIndex = 5;
             this.tb_ConfirmPassword.UseSystemPasswordChar = true;
-            this.tb_ConfirmPassword.TextChanged += new System.EventHandler(this.tb_ConfirmPassword_TextChanged);
             this.tb_ConfirmPassword.Validating += new System.ComponentModel.CancelEventHandler(this.tb_ConfirmPassword_Validating);
             // 
             // tb_UserName
@@ -199,7 +196,6 @@
             this.label2.Size = new System.Drawing.Size(64, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "User ID";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btn_Next
             // 
