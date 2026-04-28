@@ -50,6 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationTypes\frmManageApplicationTypes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplicationTypes\frmManageApplicationTypes.Designer.cs">
+      <DependentUpon>frmManageApplicationTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationTypes\frm_EditApplicationType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ApplicationTypes\frm_EditApplicationType.Designer.cs">
+      <DependentUpon>frm_EditApplicationType.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -105,6 +117,18 @@
     <Compile Include="People\uc_PersonDetailsWithFilter.Designer.cs">
       <DependentUpon>uc_PersonDetailsWithFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestTypes\frm_EditTestType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestTypes\frm_EditTestType.Designer.cs">
+      <DependentUpon>frm_EditTestType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestTypes\frm_ManageTestTypes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestTypes\frm_ManageTestTypes.Designer.cs">
+      <DependentUpon>frm_ManageTestTypes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Users\AddUpdateUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +159,12 @@
     <Compile Include="Users\UsersManageForm.Designer.cs">
       <DependentUpon>UsersManageForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ApplicationTypes\frmManageApplicationTypes.resx">
+      <DependentUpon>frmManageApplicationTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ApplicationTypes\frm_EditApplicationType.resx">
+      <DependentUpon>frm_EditApplicationType.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,6 +198,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="People\uc_PersonDetailsWithFilter.resx">
       <DependentUpon>uc_PersonDetailsWithFilter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestTypes\frm_EditTestType.resx">
+      <DependentUpon>frm_EditTestType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestTypes\frm_ManageTestTypes.resx">
+      <DependentUpon>frm_ManageTestTypes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Users\AddUpdateUserForm.resx">
       <DependentUpon>AddUpdateUserForm.cs</DependentUpon>

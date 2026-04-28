@@ -1,4 +1,5 @@
 ﻿using DVLD.Classes;
+using DVLD_Project.ApplicationTypes;
 using DVLD_Project.Classes;
 using DVLD_Project.Users;
 using System;
@@ -15,9 +16,12 @@ namespace DVLD_Project
 {
     public partial class HomeForm: Form
     {
-        public HomeForm()
+        LoginForm loginForm;
+
+        public HomeForm(LoginForm form)
         {
             InitializeComponent();
+            this.loginForm = form;
         }
 
         private void peopleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -46,6 +50,7 @@ namespace DVLD_Project
         private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+            loginForm.Show();
         }
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -70,6 +75,16 @@ namespace DVLD_Project
         {
             frmChangePassword form = new frmChangePassword();
             form.LoadUser(clsGlobal.CurrentUser.UserID);
+            form.ShowDialog();
+        }
+
+        private void HomeForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
+
+        private void manageApplicationTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmManageApplicationTypes form = new frmManageApplicationTypes();
             form.ShowDialog();
         }
     }

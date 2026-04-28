@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsTestType.cs" />
+    <Compile Include="clsApplicationType.cs" />
     <Compile Include="clsCountry.cs" />
     <Compile Include="clsPerson.cs" />
     <Compile Include="clsUser.cs" />

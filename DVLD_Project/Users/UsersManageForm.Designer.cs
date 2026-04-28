@@ -56,7 +56,6 @@
             this.label1.Size = new System.Drawing.Size(288, 52);
             this.label1.TabIndex = 0;
             this.label1.Text = "Manage User";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // dgv_Users
             // 
@@ -68,7 +67,6 @@
             this.dgv_Users.RowTemplate.Height = 28;
             this.dgv_Users.Size = new System.Drawing.Size(855, 299);
             this.dgv_Users.TabIndex = 1;
-            this.dgv_Users.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // cms_Users
             // 
@@ -81,7 +79,6 @@
             this.changePasswordToolStripMenuItem});
             this.cms_Users.Name = "cms_Users";
             this.cms_Users.Size = new System.Drawing.Size(225, 164);
-            this.cms_Users.Opening += new System.ComponentModel.CancelEventHandler(this.cmsUsers_Opening);
             // 
             // showDetailsToolStripMenuItem
             // 
@@ -143,7 +140,6 @@
             this.tb_FilterText.Name = "tb_FilterText";
             this.tb_FilterText.Size = new System.Drawing.Size(152, 26);
             this.tb_FilterText.TabIndex = 4;
-            this.tb_FilterText.TextChanged += new System.EventHandler(this.tb_FilterText_TextChanged);
             this.tb_FilterText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_FilterText_KeyPress);
             // 
             // btn_AddUser
@@ -163,7 +159,6 @@
             this.cb_Active.Name = "cb_Active";
             this.cb_Active.Size = new System.Drawing.Size(152, 28);
             this.cb_Active.TabIndex = 6;
-            this.cb_Active.SelectedIndexChanged += new System.EventHandler(this.cb_Active_SelectedIndexChanged);
             // 
             // btn_ApplyFilter
             // 

@@ -64,7 +64,6 @@ namespace DVLD_Project
                 MessageBox.Show("This User is not Active", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
             if (cb_RemeberMe.Checked)
             {
                 clsGlobal.RememberUsernameAndPassword(username, password);
@@ -72,10 +71,9 @@ namespace DVLD_Project
 
             clsGlobal.CurrentUser = user;
 
-            HomeForm form = new HomeForm();
-            form.Show();
-
-
+            this.Hide();
+            HomeForm form = new HomeForm(this);
+            form.ShowDialog();
         }
 
         private void textbox_Required(object sender, CancelEventArgs e)
