@@ -1,4 +1,5 @@
 ﻿using DVLD.Classes;
+using DVLD_Project.Applications;
 using DVLD_Project.ApplicationTypes;
 using DVLD_Project.Classes;
 using DVLD_Project.Users;
@@ -14,7 +15,7 @@ using System.Windows.Forms;
 
 namespace DVLD_Project
 {
-    public partial class HomeForm: Form
+    public partial class HomeForm : Form
     {
         LoginForm loginForm;
 
@@ -36,7 +37,7 @@ namespace DVLD_Project
 
         }
 
-   
+
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
@@ -86,6 +87,21 @@ namespace DVLD_Project
         {
             frmManageApplicationTypes form = new frmManageApplicationTypes();
             form.ShowDialog();
+        }
+
+        private void drivingLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void localDrivingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frm_AddUpdateLocalDrivingLicenseApplication().ShowDialog();
+        }
+
+        private void localDrivingLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frm_ManageLocalDrivingLicense().ShowDialog();
         }
     }
 }

@@ -11,23 +11,24 @@ namespace DVLD_Business
 {
     public class clsTestType
     {
-        public int TestTypeID { get; private set; }
+        public enum enTestType { Vision, Written, Street }
+        public enTestType TestTypeID { get; private set; }
         public string TestTypeTitle { get; set; }
         public string TestTypeDescription { get; set; }
         public decimal TestTypeFees { get; set; }
 
         private clsTestType(stTestTypeInfo info)
         {
-            this.TestTypeID = info.TestTypeID;
+            this.TestTypeID = (enTestType)info.TestTypeID;
             this.TestTypeTitle = info.TestTypeTitle;
             this.TestTypeDescription = info.TestTypeDescription;
             this.TestTypeFees = info.TestTypeFees;
         }
 
 
-        public static clsTestType Get(int id)
+        public static clsTestType Get(enTestType testTypeId)
         {
-            if (clsDataTestType.Get(id, out stTestTypeInfo info))
+            if (clsDataTestType.Get((int)testTypeId, out stTestTypeInfo info))
             {
                 return new clsTestType(info);
             }
@@ -52,7 +53,7 @@ namespace DVLD_Business
         private stTestTypeInfo GetInfo()
         {
             stTestTypeInfo info = new stTestTypeInfo();
-            info.TestTypeID = this.TestTypeID;
+            info.TestTypeID = (int)this.TestTypeID;
             info.TestTypeTitle = this.TestTypeTitle;
             info.TestTypeDescription = this.TestTypeDescription;
             info.TestTypeFees = this.TestTypeFees;

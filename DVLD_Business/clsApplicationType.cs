@@ -11,13 +11,22 @@ namespace DVLD_Business
 {
     public class clsApplicationType
     {
-        public int ApplicationTypeID { get; private set; }
+        public enum ApplicationType
+        {
+            LocalLicense = 1,
+            RenewLicense = 2,
+            ReplacementLostLicense = 3,
+            ReplacementDamagedLicense = 4,
+            ReleaseDentainedLicense = 5,
+            NewInternationalLicense = 6
+        }
+        public ApplicationType ApplicationTypeID { get; private set; }
         public string ApplicationTypeTitle { get; set; }
         public decimal ApplicationFees { get; set; }
 
         private clsApplicationType(stApplicationTypeInfo info)
         {
-            this.ApplicationTypeID = info.ApplicationTypeID;
+            this.ApplicationTypeID = (ApplicationType)info.ApplicationTypeID;
             this.ApplicationTypeTitle = info.ApplicationTypeTitle;
             this.ApplicationFees = info.ApplicationFees;
         }
@@ -50,7 +59,7 @@ namespace DVLD_Business
         private stApplicationTypeInfo GetInfo()
         {
             stApplicationTypeInfo info = new stApplicationTypeInfo();
-            info.ApplicationTypeID = this.ApplicationTypeID;
+            info.ApplicationTypeID = (int)this.ApplicationTypeID;
             info.ApplicationTypeTitle = this.ApplicationTypeTitle;
             info.ApplicationFees = this.ApplicationFees;
             return info;

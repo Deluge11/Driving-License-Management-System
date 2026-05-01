@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace DVLD_Project.TestTypes
 {
-    public partial class frm_EditTestType: Form
+    public partial class frm_EditTestType : Form
     {
         clsTestType TestType;
         public frm_EditTestType(int testTypeID)
         {
             InitializeComponent();
 
-            TestType = clsTestType.Get(testTypeID);
+            TestType = clsTestType.Get((clsTestType.enTestType)testTypeID);
 
-            if(TestType == null)
+            if (TestType == null)
             {
                 MessageBox.Show("There is no Test Type with that ID");
                 this.Close();
@@ -29,7 +29,7 @@ namespace DVLD_Project.TestTypes
 
         private void frm_EditTestType_Load(object sender, EventArgs e)
         {
-            lbl_TestTypeId.Text = TestType.TestTypeID.ToString();
+            lbl_TestTypeId.Text = ((int)TestType.TestTypeID).ToString();
             tb_Description.Text = TestType.TestTypeDescription;
             tb_Fees.Text = TestType.TestTypeFees.ToString();
             tb_Title.Text = TestType.TestTypeTitle;

@@ -50,6 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applications\frm_AddUpdateLocalDrivingLicenseApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\frm_AddUpdateLocalDrivingLicenseApplication.Designer.cs">
+      <DependentUpon>frm_AddUpdateLocalDrivingLicenseApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\frm_ManageLocalDrivingLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\frm_ManageLocalDrivingLicense.Designer.cs">
+      <DependentUpon>frm_ManageLocalDrivingLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationTypes\frmManageApplicationTypes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +171,12 @@
     <Compile Include="Users\UsersManageForm.Designer.cs">
       <DependentUpon>UsersManageForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Applications\frm_AddUpdateLocalDrivingLicenseApplication.resx">
+      <DependentUpon>frm_AddUpdateLocalDrivingLicenseApplication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\frm_ManageLocalDrivingLicense.resx">
+      <DependentUpon>frm_ManageLocalDrivingLicense.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ApplicationTypes\frmManageApplicationTypes.resx">
       <DependentUpon>frmManageApplicationTypes.cs</DependentUpon>
     </EmbeddedResource>

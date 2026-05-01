@@ -12,8 +12,9 @@ using System.Windows.Forms;
 
 namespace DVLD_Project.TestTypes
 {
-    public partial class frm_ManageTestTypes: Form
+    public partial class frm_ManageTestTypes : Form
     {
+        DataTable TestTypes = clsTestType.GetAll();
         public frm_ManageTestTypes()
         {
             InitializeComponent();
@@ -26,7 +27,8 @@ namespace DVLD_Project.TestTypes
 
         private void frm_ManageTestTypes_Load(object sender, EventArgs e)
         {
-            RefreshTestTypes();
+            TestTypes = clsTestType.GetAll();
+            dgv_TestTypes.DataSource = TestTypes;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -34,15 +36,10 @@ namespace DVLD_Project.TestTypes
 
         }
 
-        private void RefreshTestTypes()
-        {
-            dgv_TestTypes.DataSource = clsTestType.GetAll();
-        }
-
         private void editTestTypeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frm_EditTestType((int)dgv_TestTypes.CurrentRow.Cells[0].Value).ShowDialog();
-            RefreshTestTypes();
+            frm_ManageTestTypes_Load(null, null);
         }
     }
 }
