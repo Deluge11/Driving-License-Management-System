@@ -287,34 +287,6 @@ namespace DVLD_Data
             return isDeleted;
         }
 
-        public static bool Delete(int licenseId, int personId)
-        {
-            bool isDeleted = false;
-
-            string query = "DELETE FROM Applications WHERE ApplicationID=@ApplicationID";
-
-            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
-            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-
-            sqlCommand.Parameters.AddWithValue("@ApplicantPersonID", personId);
-            sqlCommand.Parameters.AddWithValue("@ApplicationID", licenseId);
-
-            try
-            {
-                sqlConnection.Open();
-                isDeleted = sqlCommand.ExecuteNonQuery() > 0;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                sqlConnection.Close();
-            }
-
-
-            return isDeleted;
-        }
+     
     }
 }

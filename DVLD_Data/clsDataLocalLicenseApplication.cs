@@ -79,7 +79,7 @@ namespace DVLD_Data
             return dt;
         }
 
-        public static bool Get(int id, out stLocalLicenseApplicationInfo info)
+        public static bool GetByLocalId(int id, out stLocalLicenseApplicationInfo info)
         {
             bool isFound = false;
             string query = "SELECT * FROM LocalDrivingLicenseApplications WHERE LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID";
@@ -87,6 +87,47 @@ namespace DVLD_Data
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
             sqlCommand.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", id);
+
+            info = new stLocalLicenseApplicationInfo();
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    info.LocalDrivingLicenseApplicationID = (int)reader["LocalDrivingLicenseApplicationID"];
+                    info.ApplicationID = (int)reader["ApplicationID"];
+                    info.LicenseClassID = (int)reader["LicenseClassID"];
+                    isFound = true;
+                }
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+
+        }
+
+        public static bool GetByGeneralId(int id, out stLocalLicenseApplicationInfo info)
+        {
+            bool isFound = false;
+            string query = "SELECT * FROM LocalDrivingLicenseApplications WHERE ApplicationID = @ApplicationID";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@ApplicationID", id);
 
             info = new stLocalLicenseApplicationInfo();
 
@@ -204,7 +245,7 @@ namespace DVLD_Data
             return isInserted;
         }
 
-        public static bool ExistsWithLicense(int personId, int licenseId)
+        public static bool IsPersonApplyOnThisLicense(int personId, int licenseId)
         {
 
             bool canApply = false;
@@ -249,6 +290,36 @@ namespace DVLD_Data
 
 
             return canApply;
+        }
+
+
+        public static bool Delete(int applicationID)
+        {
+            bool isDeleted = false;
+
+            string query = "DELETE FROM LocalDrivingLicenseApplications WHERE LocalDrivingLicenseApplicationID=@LocalDrivingLicenseApplicationID";
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", applicationID);
+
+            try
+            {
+                sqlConnection.Open();
+                isDeleted = sqlCommand.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isDeleted;
         }
     }
 }

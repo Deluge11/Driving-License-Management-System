@@ -50,6 +50,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Applications\Controls\ucGeneralApplicationDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Applications\Controls\ucGeneralApplicationDetails.Designer.cs">
+      <DependentUpon>ucGeneralApplicationDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\Controls\ucLocalDrivingApplicationDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Applications\Controls\ucLocalDrivingApplicationDetails.Designer.cs">
+      <DependentUpon>ucLocalDrivingApplicationDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Applications\frmLocalDrivingLicenseApplicationDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\frmLocalDrivingLicenseApplicationDetails.Designer.cs">
+      <DependentUpon>frmLocalDrivingLicenseApplicationDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Applications\frm_AddUpdateLocalDrivingLicenseApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +189,15 @@
     <Compile Include="Users\UsersManageForm.Designer.cs">
       <DependentUpon>UsersManageForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Applications\Controls\ucGeneralApplicationDetails.resx">
+      <DependentUpon>ucGeneralApplicationDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\Controls\ucLocalDrivingApplicationDetails.resx">
+      <DependentUpon>ucLocalDrivingApplicationDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\frmLocalDrivingLicenseApplicationDetails.resx">
+      <DependentUpon>frmLocalDrivingLicenseApplicationDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Applications\frm_AddUpdateLocalDrivingLicenseApplication.resx">
       <DependentUpon>frm_AddUpdateLocalDrivingLicenseApplication.cs</DependentUpon>
     </EmbeddedResource>

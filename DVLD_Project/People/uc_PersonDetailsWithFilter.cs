@@ -108,8 +108,8 @@ namespace DVLD_Project
                     break;
             }
 
-            if (OnPersonSelected != null && FilterEnabled)
-                OnPersonSelected(uc_PersonDetails.Person.PersonID);
+            if (FilterEnabled)
+                OnPersonSelected?.Invoke(uc_PersonDetails.Person != null ? uc_PersonDetails.Person.PersonID : -1);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -135,7 +135,7 @@ namespace DVLD_Project
 
         private void cbFilterBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)

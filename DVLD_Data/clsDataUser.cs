@@ -98,6 +98,48 @@ INNER JOIN People P ON P.PersonID = U.PersonID";
 
             return isFound;
         }
+        public static bool GetByUserName(string username, out stUserInfo info)
+        {
+            bool isFound = false;
+            string query = @"SELECT * FROM Users WHERE UserName = @UserName";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@UserName", username);
+
+            info = new stUserInfo();
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    info.UserID = (int)reader["UserID"];
+                    info.PersonID = (int)reader["PersonID"];
+                    info.UserName = (string)reader["UserName"];
+                    info.Password = (string)reader["Password"];
+                    info.IsActive = (bool)reader["IsActive"];
+
+                    isFound = true;
+                }
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+        }
 
         public static bool GetByPersonId(int id, out stUserInfo info)
         {

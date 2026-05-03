@@ -94,6 +94,7 @@
             this.uc_PersonDetails.Name = "uc_PersonDetails";
             this.uc_PersonDetails.Size = new System.Drawing.Size(699, 421);
             this.uc_PersonDetails.TabIndex = 0;
+            this.uc_PersonDetails.OnPersonSelected += new System.Action<int>(this.uc_PersonDetails_OnPersonSelected);
             // 
             // tp_ApplicationDetails
             // 

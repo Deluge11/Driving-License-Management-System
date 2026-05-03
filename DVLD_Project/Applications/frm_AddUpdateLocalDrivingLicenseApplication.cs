@@ -27,7 +27,7 @@ namespace DVLD_Project.Applications
         {
             InitializeComponent();
 
-            Application = clsLocalLicenseApplication.GetLocalLicenseApplication(applicationID);
+            Application = clsLocalLicenseApplication.GetByLocalId(applicationID);
 
             if (Application == null)
             {
@@ -40,8 +40,12 @@ namespace DVLD_Project.Applications
         private void frm_AddLocalDrivingLicenseApplication_Load(object sender, EventArgs e)
         {
             FillLicenseComboBox();
-            cb_LicenseClass.SelectedIndex = 0;
-            RefreshForm();
+            SetDefaultValues();
+
+            if (Mode == enMode.Update)
+            {
+                LoadData();
+            }
         }
 
         private void FillLicenseComboBox()
@@ -52,29 +56,31 @@ namespace DVLD_Project.Applications
             }
         }
 
-        private void RefreshForm()
+        private void SetDefaultValues()
         {
             if (Mode == enMode.Add)
             {
                 lbl_Title.Text = "New Local Driving License Application";
-
                 lbl_ApplicationCreatedBy.Text = clsGlobal.CurrentUser.Person.FirstName;
+                lbl_ApplicationDate.Text = DateTime.Now.ToShortDateString();
+                lbl_Fees.Text = clsApplicationType.Get((int)clsApplicationType.ApplicationType.LocalLicense).ApplicationFees.ToString();
+                cb_LicenseClass.SelectedIndex = 3;
             }
             else
             {
                 lbl_Title.Text = "Update Local Driving License Application";
-                uc_PersonDetails.LoadPersonInfo(Application.ApplicantPersonID);
                 uc_PersonDetails.FilterEnabled = false;
                 uc_PersonDetails.AddPersonEnabled = false;
-
-                lbl_AppicationID.Text = Application.ApplicationID.ToString();
-                lbl_ApplicationCreatedBy.Text = clsUser.Get(Application.CreatedByUserID).UserName;
             }
+        }
 
-            lbl_Fees.Text = clsApplicationType.Get(Application.ApplicationTypeID).ApplicationFees.ToString();
+        private void LoadData()
+        {
+            uc_PersonDetails.LoadPersonInfo(Application.ApplicantPersonID);
+            lbl_AppicationID.Text = Application.ApplicationID.ToString();
+            lbl_ApplicationCreatedBy.Text = clsUser.Get(Application.CreatedByUserID).UserName;
             lbl_ApplicationDate.Text = Application.ApplicationDate.ToShortDateString();
-            tc_AddUpdateApplicationDetails.Controls[1].Enabled = uc_PersonDetails.Person != null;
-
+            tc_AddUpdateApplicationDetails.Controls[1].Enabled = false;
         }
 
         private void btn_Next_Click(object sender, EventArgs e)
@@ -110,11 +116,11 @@ namespace DVLD_Project.Applications
 
             int newLicenseClassID = clsLicenseClass.Get(cb_LicenseClass.Text).LicenseClassID;
 
-            if(newLicenseClassID != Application.LicenseClassID)
+            if (newLicenseClassID != Application.LicenseClassID)
             {
                 Application.LicenseClassID = newLicenseClassID;
 
-                if (!Application.ExistsWithLicense())
+                if (!Application.IsPersonApplyOnThisLicense())
                 {
                     MessageBox.Show($"This Person Cant Apply On this License Because May he had New Application or Completed One", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -125,7 +131,11 @@ namespace DVLD_Project.Applications
             {
                 Mode = enMode.Update;
                 MessageBox.Show($"Saved Successfully", "Ok", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                RefreshForm();
+
+                lbl_Title.Text = "Update Local Driving License Application";
+                uc_PersonDetails.FilterEnabled = false;
+                uc_PersonDetails.AddPersonEnabled = false;
+                lbl_AppicationID.Text = Application.ApplicationID.ToString();
             }
             else
             {
@@ -144,7 +154,8 @@ namespace DVLD_Project.Applications
             }
 
             btn_Next.Visible = tc_AddUpdateApplicationDetails.SelectedIndex == 0;
-            RefreshForm();
+
+            //SetDefaultValues();
 
         }
 
@@ -174,6 +185,12 @@ namespace DVLD_Project.Applications
                 e.Cancel = false;
                 ep_1.SetError(cb_LicenseClass, "");
             }
+        }
+
+        private void uc_PersonDetails_OnPersonSelected(int obj)
+        {
+            Application.ApplicantPersonID = obj;
+            tc_AddUpdateApplicationDetails.Controls[1].Enabled = Application.ApplicantPersonID != -1;
         }
     }
 }

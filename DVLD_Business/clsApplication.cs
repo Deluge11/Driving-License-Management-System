@@ -12,19 +12,60 @@ namespace DVLD_Business
 {
     public class clsApplication
     {
-        public int ApplicationID { get; protected set; }
-        public int ApplicantPersonID { get; set; }
-        public DateTime ApplicationDate { get; set; }
-        public DateTime LastStatusDate { get; set; }
-        public int ApplicationTypeID { get; set; }
-        public enApplicationStatus ApplicationStatus { get; set; }
-        public decimal PaidFees { get; set; }
-        public int CreatedByUserID { get; set; }
-
         public enum enApplicationStatus { New = 1, Cancelled = 2, Completed = 3 }
         public enum enMode { Add, Update }
         public enMode Mode { get; protected set; }
 
+        public int ApplicationID { get; protected set; }
+        public DateTime ApplicationDate { get; set; }
+        public DateTime LastStatusDate { get; set; }
+        public enApplicationStatus ApplicationStatus { get; set; }
+        public decimal PaidFees { get; set; }
+
+        public int ApplicantPersonID { get; set; }
+        public clsPerson ApplicationPersonInfo
+        {
+            get
+            {
+                return clsPerson.Get(ApplicantPersonID);
+            }
+        }
+
+        public int CreatedByUserID { get; set; }
+        public clsUser CreatedByUserInfo
+        {
+            get
+            {
+                return clsUser.Get(CreatedByUserID);
+            }
+        }
+
+        public int ApplicationTypeID { get; set; }
+        public clsApplicationType ApplicationTypeInfo
+        {
+            get
+            {
+                return clsApplicationType.Get(ApplicationTypeID);
+            }
+        }
+
+        public string StatusText
+        {
+            get
+            {
+                switch (ApplicationStatus)
+                {
+                    case enApplicationStatus.New:
+                        return "New";
+                    case enApplicationStatus.Cancelled:
+                        return "Cancelled";
+                    case enApplicationStatus.Completed:
+                        return "Completed";
+                    default:
+                        return "Unknown";
+                }
+            }
+        }
 
         public clsApplication()
         {
@@ -65,9 +106,22 @@ namespace DVLD_Business
             return null;
         }
 
+        public bool Cancel()
+        {
+            if (ApplicationStatus == enApplicationStatus.New)
+                return clsDataApplication.UpdateStatus(ApplicationID, (int)enApplicationStatus.Cancelled);
+            return false;
+        }
+
+        public bool SetComplete()
+        {
+            if (ApplicationStatus == enApplicationStatus.New)
+                return clsDataApplication.UpdateStatus(ApplicationID, (int)enApplicationStatus.Completed);
+            return false;
+        }
+
         public virtual bool Save()
         {
-
             switch (Mode)
             {
                 case enMode.Add:
@@ -104,25 +158,14 @@ namespace DVLD_Business
             return false;
         }
 
-        public bool Cancel()
+        public static bool Delete(int applicationID)
         {
-            if (this.ApplicationStatus != enApplicationStatus.New)
-            {
-                return false;
-            }
-
-            this.ApplicationStatus = enApplicationStatus.Cancelled;
-            return this.Save();
+            return clsDataApplication.Delete(applicationID);
         }
 
-        public static bool Delete(int userID)
+        public static bool Exists(int applicationID)
         {
-            return clsDataApplication.Delete(userID);
-        }
-
-        public static bool Exists(int userID)
-        {
-            return clsDataApplication.Exists(userID);
+            return clsDataApplication.Exists(applicationID);
         }
 
         public static DataTable GetAll()
@@ -145,5 +188,33 @@ namespace DVLD_Business
 
             return info;
         }
+
+
+        /*
+        public static bool DoesPersonHaveActiveApplication(int PersonID, int ApplicationTypeID)
+        {
+            return clsApplicationData.DoesPersonHaveActiveApplication(PersonID, ApplicationTypeID);
+        }
+
+        public bool DoesPersonHaveActiveApplication(int ApplicationTypeID)
+        {
+            return DoesPersonHaveActiveApplication(this.ApplicantPersonID, ApplicationTypeID);
+        }
+
+        public static int GetActiveApplicationID(int PersonID, clsApplication.enApplicationType ApplicationTypeID)
+        {
+            return clsApplicationData.GetActiveApplicationID(PersonID, (int)ApplicationTypeID);
+        }
+
+        public static int GetActiveApplicationIDForLicenseClass(int PersonID, clsApplication.enApplicationType ApplicationTypeID, int LicenseClassID)
+        {
+            return clsApplicationData.GetActiveApplicationIDForLicenseClass(PersonID, (int)ApplicationTypeID, LicenseClassID);
+        }
+
+        public int GetActiveApplicationID(clsApplication.enApplicationType ApplicationTypeID)
+        {
+            return GetActiveApplicationID(this.ApplicantPersonID, ApplicationTypeID);
+        }
+         */
     }
 }

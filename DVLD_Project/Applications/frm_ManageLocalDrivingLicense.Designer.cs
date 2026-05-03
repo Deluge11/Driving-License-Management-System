@@ -80,12 +80,14 @@
             this.showPersonLicenseHistoryToolStripMenuItem});
             this.cms_LocalDrivingLicenseApplication.Name = "cms_LocalDrivingLicenseApplication";
             this.cms_LocalDrivingLicenseApplication.Size = new System.Drawing.Size(310, 229);
+            this.cms_LocalDrivingLicenseApplication.Opening += new System.ComponentModel.CancelEventHandler(this.cms_LocalDrivingLicenseApplication_Opening);
             // 
             // showApplicationDetailsToolStripMenuItem
             // 
             this.showApplicationDetailsToolStripMenuItem.Name = "showApplicationDetailsToolStripMenuItem";
             this.showApplicationDetailsToolStripMenuItem.Size = new System.Drawing.Size(309, 32);
             this.showApplicationDetailsToolStripMenuItem.Text = "Show Application Details";
+            this.showApplicationDetailsToolStripMenuItem.Click += new System.EventHandler(this.showApplicationDetailsToolStripMenuItem_Click);
             // 
             // editApplicationToolStripMenuItem
             // 
@@ -99,6 +101,7 @@
             this.deleteApplicationToolStripMenuItem.Name = "deleteApplicationToolStripMenuItem";
             this.deleteApplicationToolStripMenuItem.Size = new System.Drawing.Size(309, 32);
             this.deleteApplicationToolStripMenuItem.Text = "Delete Application";
+            this.deleteApplicationToolStripMenuItem.Click += new System.EventHandler(this.deleteApplicationToolStripMenuItem_Click);
             // 
             // cancelApplicationToolStripMenuItem
             // 
@@ -127,6 +130,7 @@
             this.btn_AddLocalDrivingApplication.TabIndex = 2;
             this.btn_AddLocalDrivingApplication.Text = "Add";
             this.btn_AddLocalDrivingApplication.UseVisualStyleBackColor = true;
+            this.btn_AddLocalDrivingApplication.Click += new System.EventHandler(this.btn_AddLocalDrivingApplication_Click);
             // 
             // frm_ManageLocalDrivingLicense
             // 

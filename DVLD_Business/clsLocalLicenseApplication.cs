@@ -11,11 +11,19 @@ namespace DVLD_Business
 {
     public class clsLocalLicenseApplication : clsApplication
     {
+        enum enLocalMode { Add, Update }
+        enLocalMode LocalMode;
+
         public int LocalDrivingLicenseApplicationID { get; private set; }
         public int LicenseClassID { get; set; }
+        public clsLicenseClass LicenseClass
+        {
+            get
+            {
+                return clsLicenseClass.Get(LicenseClassID);
+            }
+        }
 
-        enum enMode { Add, Update }
-        enMode Mode;
 
         public clsLocalLicenseApplication() : base()
         {
@@ -24,7 +32,7 @@ namespace DVLD_Business
             LicenseClassID = -1; ;
 
             ApplicationTypeID = (int)clsApplicationType.ApplicationType.LocalLicense;
-            Mode = enMode.Add;
+            LocalMode = enLocalMode.Add;
         }
 
         private clsLocalLicenseApplication(stLocalLicenseApplicationInfo info)
@@ -47,14 +55,24 @@ namespace DVLD_Business
         }
 
 
-        public static clsLocalLicenseApplication GetLocalLicenseApplication(int id)
+        public static clsLocalLicenseApplication GetByLocalId(int id)
         {
-            if (clsDataLocalLicenseApplication.Get(id, out stLocalLicenseApplicationInfo info))
+            if (clsDataLocalLicenseApplication.GetByLocalId(id, out stLocalLicenseApplicationInfo info))
             {
                 return new clsLocalLicenseApplication(info);
             }
             return null;
         }
+
+        public static clsLocalLicenseApplication GetByGeneralId(int id)
+        {
+            if (clsDataLocalLicenseApplication.GetByGeneralId(id, out stLocalLicenseApplicationInfo info))
+            {
+                return new clsLocalLicenseApplication(info);
+            }
+            return null;
+        }
+
 
         public override bool Save()
         {
@@ -63,9 +81,9 @@ namespace DVLD_Business
                 return false;
             }
 
-            switch (this.Mode)
+            switch (LocalMode)
             {
-                case enMode.Add:
+                case enLocalMode.Add:
                     if (Add())
                     {
                         Mode = enMode.Update;
@@ -76,7 +94,7 @@ namespace DVLD_Business
                         return false;
                     }
 
-                case enMode.Update:
+                case enLocalMode.Update:
                     return Update();
 
                 default:
@@ -99,20 +117,16 @@ namespace DVLD_Business
             return false;
         }
 
-        public bool ExistsWithLicense()
+        public bool IsPersonApplyOnThisLicense()
         {
-            return clsDataLocalLicenseApplication.ExistsWithLicense(ApplicantPersonID, LicenseClassID);
+            return clsDataLocalLicenseApplication.IsPersonApplyOnThisLicense(ApplicantPersonID, LicenseClassID);
         }
 
-        //public static bool Delete(int userID)
-        //{
-        //    return clsDataApplication.Delete(userID);
-        //}
+        public static bool DeleteLocalDrivingLicenseApplication(int localApplicationID)
+        {
+            return clsDataLocalLicenseApplication.Delete(localApplicationID);
+        }
 
-        //public static bool Exists(int userID)
-        //{
-        //    return clsDataApplication.Exists(userID);
-        //}
 
         public static DataTable GetAllLocalLicenseApplications()
         {

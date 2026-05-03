@@ -26,6 +26,13 @@ namespace DVLD_Business
         public int NationalityCountryId { get; set; }
         public string ImagePath { get; set; }
 
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {SecondName} {ThirdName} {LastName}";
+            }
+        }
         enum enMode { Add, Update }
         enMode Mode { get; set; }
 

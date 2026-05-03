@@ -57,6 +57,15 @@ namespace DVLD_Business
             return null;
         }
 
+        public static clsUser Get(string username)
+        {
+            if (clsDataUser.GetByUserName(username, out stUserInfo info))
+            {
+                return new clsUser(info);
+            }
+            return null;
+        }
+
         public static clsUser Get(string username, string password)
         {
             if (clsDataUser.GetByUsernameAndPassword(username, password, out stUserInfo info))
