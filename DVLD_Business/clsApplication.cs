@@ -23,6 +23,10 @@ namespace DVLD_Business
         public decimal PaidFees { get; set; }
 
         public int ApplicantPersonID { get; set; }
+        public int CreatedByUserID { get; set; }
+        public clsApplicationType.ApplicationType ApplicationTypeID { get; set; }
+
+
         public clsPerson ApplicationPersonInfo
         {
             get
@@ -31,7 +35,6 @@ namespace DVLD_Business
             }
         }
 
-        public int CreatedByUserID { get; set; }
         public clsUser CreatedByUserInfo
         {
             get
@@ -40,7 +43,6 @@ namespace DVLD_Business
             }
         }
 
-        public int ApplicationTypeID { get; set; }
         public clsApplicationType ApplicationTypeInfo
         {
             get
@@ -71,7 +73,7 @@ namespace DVLD_Business
         {
             this.ApplicationID = -1;
             this.ApplicantPersonID = -1;
-            this.ApplicationTypeID = -1;
+            this.ApplicationTypeID = 0;
             this.PaidFees = 0;
             this.CreatedByUserID = -1;
 
@@ -88,7 +90,7 @@ namespace DVLD_Business
             this.ApplicantPersonID = info.ApplicantPersonID;
             this.ApplicationDate = info.ApplicationDate;
             this.LastStatusDate = info.LastStatusDate;
-            this.ApplicationTypeID = info.ApplicationTypeID;
+            this.ApplicationTypeID = (clsApplicationType.ApplicationType)info.ApplicationTypeID;
             this.ApplicationStatus = (enApplicationStatus)info.ApplicationStatus;
             this.PaidFees = info.PaidFees;
             this.CreatedByUserID = info.CreatedByUserID;
@@ -181,13 +183,25 @@ namespace DVLD_Business
             info.ApplicantPersonID = this.ApplicantPersonID;
             info.ApplicationDate = this.ApplicationDate;
             info.LastStatusDate = this.LastStatusDate;
-            info.ApplicationTypeID = this.ApplicationTypeID;
+            info.ApplicationTypeID = (int)this.ApplicationTypeID;
             info.ApplicationStatus = (byte)this.ApplicationStatus;
             info.PaidFees = this.PaidFees;
             info.CreatedByUserID = this.CreatedByUserID;
 
             return info;
         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /*
@@ -215,6 +229,6 @@ namespace DVLD_Business
         {
             return GetActiveApplicationID(this.ApplicantPersonID, ApplicationTypeID);
         }
-         */
+        */
     }
 }

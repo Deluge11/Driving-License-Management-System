@@ -44,6 +44,8 @@
     <Compile Include="clsDataApplication.cs" />
     <Compile Include="clsDataLocalLicenseApplication.cs" />
     <Compile Include="clsDataLicenseClass.cs" />
+    <Compile Include="clsDataTest.cs" />
+    <Compile Include="clsDataTestAppointments.cs" />
     <Compile Include="clsDataTestType.cs" />
     <Compile Include="clsDataApplicationType.cs" />
     <Compile Include="clsDataCountry.cs" />
@@ -53,6 +55,8 @@
     <Compile Include="InfoStructs\stLocalLicenseApplicationInfo.cs" />
     <Compile Include="InfoStructs\stApplicationInfo.cs" />
     <Compile Include="InfoStructs\stLicenseClassInfo.cs" />
+    <Compile Include="InfoStructs\stTestAppointmentInfo.cs" />
+    <Compile Include="InfoStructs\stTestInfo.cs" />
     <Compile Include="InfoStructs\stTestTypeInfo.cs" />
     <Compile Include="InfoStructs\stApplicationTypeInfo.cs" />
     <Compile Include="InfoStructs\stUserInfo.cs" />

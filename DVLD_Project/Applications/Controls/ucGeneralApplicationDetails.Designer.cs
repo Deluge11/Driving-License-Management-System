@@ -195,12 +195,13 @@
             // ll_PersonInfo
             // 
             this.ll_PersonInfo.AutoSize = true;
-            this.ll_PersonInfo.Location = new System.Drawing.Point(402, 231);
+            this.ll_PersonInfo.Location = new System.Drawing.Point(516, 228);
             this.ll_PersonInfo.Name = "ll_PersonInfo";
             this.ll_PersonInfo.Size = new System.Drawing.Size(150, 20);
             this.ll_PersonInfo.TabIndex = 16;
             this.ll_PersonInfo.TabStop = true;
             this.ll_PersonInfo.Text = "View Person Details";
+            this.ll_PersonInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ll_PersonInfo_LinkClicked);
             // 
             // label17
             // 
@@ -234,7 +235,7 @@
             this.Controls.Add(this.lbl_Fees);
             this.Controls.Add(this.label1);
             this.Name = "ucGeneralApplicationDetails";
-            this.Size = new System.Drawing.Size(699, 286);
+            this.Size = new System.Drawing.Size(699, 292);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -33,9 +33,9 @@
             // 
             // ucLocalDrivingApplicationDetails
             // 
-            this.ucLocalDrivingApplicationDetails.Location = new System.Drawing.Point(12, 24);
+            this.ucLocalDrivingApplicationDetails.Location = new System.Drawing.Point(12, 12);
             this.ucLocalDrivingApplicationDetails.Name = "ucLocalDrivingApplicationDetails";
-            this.ucLocalDrivingApplicationDetails.Size = new System.Drawing.Size(642, 401);
+            this.ucLocalDrivingApplicationDetails.Size = new System.Drawing.Size(642, 432);
             this.ucLocalDrivingApplicationDetails.TabIndex = 0;
             this.ucLocalDrivingApplicationDetails.Load += new System.EventHandler(this.ucLocalDrivingApplicationDetails1_Load);
             // 
@@ -43,7 +43,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 424);
+            this.ClientSize = new System.Drawing.Size(695, 537);
             this.Controls.Add(this.ucLocalDrivingApplicationDetails);
             this.Name = "frmLocalDrivingLicenseApplicationDetails";
             this.Text = "frmLocalDrivingLicenseApplcationDetails";

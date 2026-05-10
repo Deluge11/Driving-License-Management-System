@@ -19,7 +19,7 @@ namespace DVLD_Project.ApplicationTypes
         {
             InitializeComponent();
 
-            ApplicationType = clsApplicationType.Get(applicationTypeID);
+            ApplicationType = clsApplicationType.Get((clsApplicationType.ApplicationType)applicationTypeID);
 
             if (ApplicationType == null)
             {
@@ -57,7 +57,7 @@ namespace DVLD_Project.ApplicationTypes
 
             if (ApplicationType.Save())
             {
-                MessageBox.Show("Done","Success",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Done", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
             else

@@ -37,6 +37,9 @@
             this.deleteApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sechduleTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.writtenTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.drivingTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showPersonLicenseHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_AddLocalDrivingApplication = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LocalDrivingLicense)).BeginInit();
@@ -79,7 +82,7 @@
             this.sechduleTestsToolStripMenuItem,
             this.showPersonLicenseHistoryToolStripMenuItem});
             this.cms_LocalDrivingLicenseApplication.Name = "cms_LocalDrivingLicenseApplication";
-            this.cms_LocalDrivingLicenseApplication.Size = new System.Drawing.Size(310, 229);
+            this.cms_LocalDrivingLicenseApplication.Size = new System.Drawing.Size(310, 196);
             this.cms_LocalDrivingLicenseApplication.Opening += new System.ComponentModel.CancelEventHandler(this.cms_LocalDrivingLicenseApplication_Opening);
             // 
             // showApplicationDetailsToolStripMenuItem
@@ -112,9 +115,35 @@
             // 
             // sechduleTestsToolStripMenuItem
             // 
+            this.sechduleTestsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewTestToolStripMenuItem,
+            this.writtenTestToolStripMenuItem,
+            this.drivingTestToolStripMenuItem});
             this.sechduleTestsToolStripMenuItem.Name = "sechduleTestsToolStripMenuItem";
             this.sechduleTestsToolStripMenuItem.Size = new System.Drawing.Size(309, 32);
             this.sechduleTestsToolStripMenuItem.Text = "Sechdule Tests";
+            this.sechduleTestsToolStripMenuItem.Click += new System.EventHandler(this.sechduleTestsToolStripMenuItem_Click);
+            // 
+            // viewTestToolStripMenuItem
+            // 
+            this.viewTestToolStripMenuItem.Name = "viewTestToolStripMenuItem";
+            this.viewTestToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.viewTestToolStripMenuItem.Text = "View Test";
+            this.viewTestToolStripMenuItem.Click += new System.EventHandler(this.viewTestToolStripMenuItem_Click);
+            // 
+            // writtenTestToolStripMenuItem
+            // 
+            this.writtenTestToolStripMenuItem.Name = "writtenTestToolStripMenuItem";
+            this.writtenTestToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.writtenTestToolStripMenuItem.Text = "Written Test";
+            this.writtenTestToolStripMenuItem.Click += new System.EventHandler(this.writtenTestToolStripMenuItem_Click);
+            // 
+            // drivingTestToolStripMenuItem
+            // 
+            this.drivingTestToolStripMenuItem.Name = "drivingTestToolStripMenuItem";
+            this.drivingTestToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.drivingTestToolStripMenuItem.Text = "Street Test";
+            this.drivingTestToolStripMenuItem.Click += new System.EventHandler(this.drivingTestToolStripMenuItem_Click);
             // 
             // showPersonLicenseHistoryToolStripMenuItem
             // 
@@ -162,5 +191,8 @@
         private System.Windows.Forms.ToolStripMenuItem cancelApplicationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sechduleTestsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showPersonLicenseHistoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem writtenTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem drivingTestToolStripMenuItem;
     }
 }

@@ -107,9 +107,9 @@
             // 
             // ucGeneralApplicationDetails
             // 
-            this.ucGeneralApplicationDetails.Location = new System.Drawing.Point(19, 121);
+            this.ucGeneralApplicationDetails.Location = new System.Drawing.Point(19, 123);
             this.ucGeneralApplicationDetails.Name = "ucGeneralApplicationDetails";
-            this.ucGeneralApplicationDetails.Size = new System.Drawing.Size(576, 259);
+            this.ucGeneralApplicationDetails.Size = new System.Drawing.Size(668, 300);
             this.ucGeneralApplicationDetails.TabIndex = 7;
             // 
             // ucLocalDrivingApplicationDetails
@@ -125,7 +125,7 @@
             this.Controls.Add(this.lbl_LicenseName);
             this.Controls.Add(this.label1);
             this.Name = "ucLocalDrivingApplicationDetails";
-            this.Size = new System.Drawing.Size(723, 401);
+            this.Size = new System.Drawing.Size(723, 445);
             this.Load += new System.EventHandler(this.ucApplicationDetails_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

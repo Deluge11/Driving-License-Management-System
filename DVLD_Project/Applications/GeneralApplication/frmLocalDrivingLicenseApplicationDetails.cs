@@ -13,24 +13,15 @@ namespace DVLD_Project.Applications
 {
     public partial class frmLocalDrivingLicenseApplicationDetails: Form
     {
-        public frmLocalDrivingLicenseApplicationDetails()
+        int applicationId;
+        public frmLocalDrivingLicenseApplicationDetails(int applicationID)
         {
             InitializeComponent();
         }
 
         private void ucLocalDrivingApplicationDetails1_Load(object sender, EventArgs e)
         {
-
-        }
-
-        public void LoadByLocalApplication(int applicationId)
-        {
             ucLocalDrivingApplicationDetails.LoadApplicationByLocalApplicationId(applicationId);
-        }
-
-        public void LoadByGeneralApplication(int applicationId)
-        {
-            ucLocalDrivingApplicationDetails.LoadApplicationByGeneralApplicationId(applicationId);
         }
     }
 }

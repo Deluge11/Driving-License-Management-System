@@ -11,7 +11,7 @@ namespace DVLD_Business
 {
     public class clsTestType
     {
-        public enum enTestType { Vision, Written, Street }
+        public enum enTestType { Vision = 1, Written = 2, Street = 3 }
         public enTestType TestTypeID { get; private set; }
         public string TestTypeTitle { get; set; }
         public string TestTypeDescription { get; set; }

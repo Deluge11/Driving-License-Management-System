@@ -18,7 +18,8 @@ namespace DVLD_Business
             ReplacementLostLicense = 3,
             ReplacementDamagedLicense = 4,
             ReleaseDentainedLicense = 5,
-            NewInternationalLicense = 6
+            NewInternationalLicense = 6,
+            RetakeTest = 7
         }
         public ApplicationType ApplicationTypeID { get; private set; }
         public string ApplicationTypeTitle { get; set; }
@@ -32,9 +33,9 @@ namespace DVLD_Business
         }
 
 
-        public static clsApplicationType Get(int id)
+        public static clsApplicationType Get(ApplicationType id)
         {
-            if (clsDataApplicationType.Get(id, out stApplicationTypeInfo info))
+            if (clsDataApplicationType.Get((int)id, out stApplicationTypeInfo info))
             {
                 return new clsApplicationType(info);
             }

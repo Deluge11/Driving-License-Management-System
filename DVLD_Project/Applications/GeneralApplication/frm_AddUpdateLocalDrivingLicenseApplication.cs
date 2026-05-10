@@ -18,7 +18,7 @@ namespace DVLD_Project.Applications
             InitializeComponent();
 
             Application = new clsLocalLicenseApplication();
-            Application.ApplicationTypeID = (int)clsApplicationType.ApplicationType.LocalLicense;
+            Application.ApplicationTypeID = clsApplicationType.ApplicationType.LocalLicense;
             Mode = enMode.Add;
 
         }
@@ -63,7 +63,7 @@ namespace DVLD_Project.Applications
                 lbl_Title.Text = "New Local Driving License Application";
                 lbl_ApplicationCreatedBy.Text = clsGlobal.CurrentUser.Person.FirstName;
                 lbl_ApplicationDate.Text = DateTime.Now.ToShortDateString();
-                lbl_Fees.Text = clsApplicationType.Get((int)clsApplicationType.ApplicationType.LocalLicense).ApplicationFees.ToString();
+                lbl_Fees.Text = clsApplicationType.Get(clsApplicationType.ApplicationType.LocalLicense).ApplicationFees.ToString();
                 cb_LicenseClass.SelectedIndex = 3;
             }
             else

@@ -62,5 +62,11 @@ namespace DVLD_Project.Applications.Controls
             lbl_Type.Text = application.ApplicationTypeInfo.ApplicationTypeTitle;
 
         }
+
+        private void ll_PersonInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            PersonDetails personDetails = new PersonDetails(application.ApplicantPersonID);
+            personDetails.ShowDialog();
+        }
     }
 }

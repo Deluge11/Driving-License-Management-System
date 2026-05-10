@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DVLD_Data.InfoStructs;
+using System.ComponentModel;
 
 namespace DVLD_Data
 {
@@ -13,7 +14,7 @@ namespace DVLD_Data
     {
         public static DataTable GetAll()
         {
-            string query = 
+            string query =
             @"
             SELECT 
 
@@ -321,5 +322,124 @@ namespace DVLD_Data
 
             return isDeleted;
         }
+
+        public static bool DoesPassTestType(int testTypeId, int localDrivingLicenseApplicationId)
+        {
+            bool exists = false;
+
+            //Semi Join
+            string query =
+            @"SELECT Found = 1 FROM Tests T
+            WHERE T.TestResult = 1 AND
+            T.TestAppointmentID IN 
+            (
+            SELECT TP.TestAppointmentID FROM TestAppointments TP
+            WHERE TP.LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID AND 
+            TP.TestTypeID = @TestTypeID
+            )";
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@TestTypeID", testTypeId);
+            sqlCommand.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", localDrivingLicenseApplicationId);
+
+            try
+            {
+                sqlConnection.Open();
+                object result = sqlCommand.ExecuteScalar();
+
+                exists = result != null && result != DBNull.Value;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                exists = false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return exists;
+        }
+
+        public static bool IsThereActiveTestAppointment(int testTypeId, int localDrivingLicenseApplicationId)
+        {
+            bool exists = false;
+
+            string query =
+            @"SELECT Found = 1 FROM TestAppointments TP
+            WHERE TP.LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID AND
+            TP.TestTypeID = @TestTypeID AND
+            TP.IsLocked = 0";
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@TestTypeID", testTypeId);
+            sqlCommand.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", localDrivingLicenseApplicationId);
+
+            try
+            {
+                sqlConnection.Open();
+                object result = sqlCommand.ExecuteScalar();
+
+                exists = result != null && result != DBNull.Value;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                exists = false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return exists;
+        }
+
+        public static int GetTestTrails(int testTypeId, int localDrivingLicenseApplicationId)
+        {
+            string query =
+            @"SELECT COUNT(*) FROM Tests T
+            WHERE T.TestAppointmentID IN
+            (
+            SELECT TP.TestAppointmentID FROM TestAppointments TP WHERE
+            TP.LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID AND
+            TP.TestTypeID = @TestTypeID
+            )";
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@TestTypeID", testTypeId);
+            sqlCommand.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", localDrivingLicenseApplicationId);
+
+            try
+            {
+                sqlConnection.Open();
+                object result = sqlCommand.ExecuteScalar();
+
+                if (result != null && result != DBNull.Value)
+                {
+                    return (int)result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return 0;
+        }
+
     }
 }

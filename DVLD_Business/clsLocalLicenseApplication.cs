@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace DVLD_Business
 {
@@ -31,7 +32,7 @@ namespace DVLD_Business
             LocalDrivingLicenseApplicationID = -1;
             LicenseClassID = -1; ;
 
-            ApplicationTypeID = (int)clsApplicationType.ApplicationType.LocalLicense;
+            ApplicationTypeID =clsApplicationType.ApplicationType.LocalLicense;
             LocalMode = enLocalMode.Add;
         }
 
@@ -127,10 +128,29 @@ namespace DVLD_Business
             return clsDataLocalLicenseApplication.Delete(localApplicationID);
         }
 
+        public bool DeleteLocalDrivingLicenseApplication()
+        {
+            return clsDataLocalLicenseApplication.Delete(LocalDrivingLicenseApplicationID);
+        }
 
         public static DataTable GetAllLocalLicenseApplications()
         {
             return clsDataLocalLicenseApplication.GetAll();
+        }
+
+        public bool DoesPassTestType(clsTestType.enTestType TestType)
+        {
+            return clsDataLocalLicenseApplication.DoesPassTestType((int)TestType, LocalDrivingLicenseApplicationID);
+        }
+
+        public bool IsThereActiveTestAppointment(clsTestType.enTestType TestType)
+        {
+            return clsDataLocalLicenseApplication.IsThereActiveTestAppointment((int)TestType, LocalDrivingLicenseApplicationID);
+        }
+
+        public int GetTestTrails(clsTestType.enTestType TestType)
+        {
+            return clsDataLocalLicenseApplication.GetTestTrails((int)TestType, LocalDrivingLicenseApplicationID);
         }
 
         private stLocalLicenseApplicationInfo GetInfo()
