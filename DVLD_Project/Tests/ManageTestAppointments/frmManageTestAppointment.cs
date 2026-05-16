@@ -1,6 +1,7 @@
 ﻿using DVLD.Classes;
 using DVLD_Business;
 using DVLD_Project.Applications;
+using DVLD_Project.Tests.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,9 @@ namespace DVLD_Project.Tests
 {
     public partial class frmManageTestAppointment : Form
     {
-        clsTestType.enTestType TestType;
         clsLocalLicenseApplication application;
-        DataTable dtTestAppointments;
+
+        clsTestType.enTestType TestTypeID = clsTestType.enTestType.Vision;
         public frmManageTestAppointment(int localDrivingLicenseApplicationId, clsTestType.enTestType TestType)
         {
             InitializeComponent();
@@ -30,67 +31,69 @@ namespace DVLD_Project.Tests
                 return;
             }
 
-            this.TestType = TestType;
+            this.TestTypeID = TestType;
         }
 
         private void frmViewTestAppointmentDetails_Load(object sender, EventArgs e)
         {
             ucLocalDrivingApplicationDetails.LoadApplicationByLocalApplicationId(application.LocalDrivingLicenseApplicationID);
             RefreshTestAppointments();
-            lbl_Title.Text = GetTestTypeName() + " Test Appointment";
-        }
 
-        private string GetTestTypeName()
-        {
-            switch (TestType)
+
+            switch (TestTypeID)
             {
+
                 case clsTestType.enTestType.Vision:
-                    return "Vision";
+                    lbl_Title.Text = "Vision Test";
+                    break;
+
                 case clsTestType.enTestType.Written:
-                    return "Written";
+                    lbl_Title.Text = "Written Test";
+                    break;
+
                 case clsTestType.enTestType.Street:
-                    return "Street";
-                default:
-                    return "Unknown";
+                    lbl_Title.Text = "Street Test";
+                    break;
             }
         }
 
+
         private void RefreshTestAppointments()
         {
-            dtTestAppointments = clsTestAppointment.GetTestAppointments(application.LocalDrivingLicenseApplicationID, TestType);
-            dgv_TestAppointments.DataSource = dtTestAppointments;
+            dgv_TestAppointments.DataSource = clsTestAppointment.GetTestAppointments(application.LocalDrivingLicenseApplicationID, TestTypeID);
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
-            if (application.IsThereActiveTestAppointment(TestType))
+            if (application.IsThereActiveTestAppointment(TestTypeID))
             {
                 MessageBox.Show("There is already an open test appointment", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (application.DoesPassTestType(TestType))
+            if (application.DoesPassTestType(TestTypeID))
             {
                 MessageBox.Show("This Test Passed Already", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            frmAddUpdateTestAppointment form = new frmAddUpdateTestAppointment(TestType, application.LocalDrivingLicenseApplicationID);
+            frmScheduleTest form = new frmScheduleTest();
+            form.ScheduleNewTestAppointment(application.LocalDrivingLicenseApplicationID, TestTypeID);
             form.ShowDialog();
             frmViewTestAppointmentDetails_Load(null, null);
         }
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmAddUpdateTestAppointment form = new frmAddUpdateTestAppointment((int)dgv_TestAppointments.CurrentRow.Cells[0].Value);
+            frmScheduleTest form = new frmScheduleTest();
+            form.UpdateTestAppointment((int)dgv_TestAppointments.CurrentRow.Cells[0].Value);
             form.ShowDialog();
             frmViewTestAppointmentDetails_Load(null, null);
         }
 
         private void takeTestToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmScheduledTest form = new frmScheduledTest((int)dgv_TestAppointments.CurrentRow.Cells[0].Value);
-            form.ShowDialog();
+            new frmTakeTest((int)dgv_TestAppointments.CurrentRow.Cells[0].Value).ShowDialog();
             frmViewTestAppointmentDetails_Load(null, null);
         }
     }

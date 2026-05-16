@@ -21,7 +21,7 @@ namespace DVLD_Business
         public int CreatedByUserID { get; set; }
         public int RetakeTestApplicationID { get; set; }
         public bool IsLocked { get; set; }
-        public clsApplication RetTestApplication
+        public clsApplication ReTestApplication
         {
             get
             {
@@ -37,6 +37,13 @@ namespace DVLD_Business
             }
         }
 
+        public clsTest Test
+        {
+            get
+            {
+                return clsTest.GetByTestAppointment(this.TestAppointmentID);
+            }
+        }
         enum enMode { Add, Update }
         enMode Mode { get; set; }
 
@@ -65,7 +72,7 @@ namespace DVLD_Business
             CreatedByUserID = info.CreatedByUserID;
             IsLocked = info.IsLocked;
             RetakeTestApplicationID = info.RetakeTestApplicationID;
-            
+
             Mode = enMode.Update;
         }
 

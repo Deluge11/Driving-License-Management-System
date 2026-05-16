@@ -73,19 +73,19 @@
             this.editToolStripMenuItem,
             this.takeTestToolStripMenuItem});
             this.cmsManageTestAppointment.Name = "cmsManageTestAppointment";
-            this.cmsManageTestAppointment.Size = new System.Drawing.Size(241, 101);
+            this.cmsManageTestAppointment.Size = new System.Drawing.Size(154, 68);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(153, 32);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
             // takeTestToolStripMenuItem
             // 
             this.takeTestToolStripMenuItem.Name = "takeTestToolStripMenuItem";
-            this.takeTestToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.takeTestToolStripMenuItem.Size = new System.Drawing.Size(153, 32);
             this.takeTestToolStripMenuItem.Text = "Take Test";
             this.takeTestToolStripMenuItem.Click += new System.EventHandler(this.takeTestToolStripMenuItem_Click);
             // 

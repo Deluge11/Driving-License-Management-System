@@ -2,35 +2,61 @@
 using DVLD_Business;
 using System;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DVLD_Project.Tests
 {
-    public partial class frmScheduledTest : Form
+    public partial class frmTakeTest : Form
     {
         clsTestAppointment TestAppointment;
-        public frmScheduledTest(int testAppointmentId)
+        clsTest Test;
+
+        public frmTakeTest(int testAppointmentId)
         {
             InitializeComponent();
 
             TestAppointment = clsTestAppointment.Get(testAppointmentId);
-
-
-            if (TestAppointment == null)
-            {
-                MessageBox.Show("Test appointment not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
         }
 
         private void frmScheduledTest_Load(object sender, EventArgs e)
         {
+            if (TestAppointment == null)
+            {
+                MessageBox.Show("Test appointment not exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
+
+            Test = TestAppointment.Test;
+
+            if (Test == null)
+            {
+                Test = new clsTest();
+                Test.TestAppointmentID = TestAppointment.TestAppointmentID;
+                Test.CreatedByUserID = clsGlobal.CurrentUser.UserID;
+            }
+            else
+            {
+                btn_Save.Enabled = false;
+                rbFail.Enabled = false;
+                rbPass.Enabled = false;
+            }
+
             lbl_LocalAppID.Text = TestAppointment.LocalDrivingLicenseApplicationID.ToString();
             lbl_Class.Text = TestAppointment.LocalDrivingLicenseApplication.LicenseClass.ClassName;
             lbl_Name.Text = TestAppointment.LocalDrivingLicenseApplication.ApplicationPersonInfo.FullName;
             lbl_TestDate.Text = TestAppointment.AppointmentDate.ToShortDateString();
             lbl_TestFees.Text = TestAppointment.PaidFees.ToString();
             lbl_Trial.Text = TestAppointment.LocalDrivingLicenseApplication.GetTestTrails(TestAppointment.TestTypeID).ToString();
-            lbl_TestID.Text = "Unknown";
+            lbl_TestID.Text = Test.TestID == -1 ? "Unknown" : Test.TestID.ToString();
+            if (Test.TestResult)
+            {
+                rbPass.Checked = true;
+            }
+            else
+            {
+                rbFail.Checked = true;
+            }
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
@@ -41,17 +67,14 @@ namespace DVLD_Project.Tests
                 return;
             }
 
-            clsTest test = new clsTest();
+            Test.TestResult = rbPass.Checked;
 
-            test.TestAppointmentID = TestAppointment.TestAppointmentID;
-            test.CreatedByUserID = clsGlobal.CurrentUser.UserID;
-            test.TestResult = rbPass.Checked;
-
-            if (test.Save())
+            if (Test.Save())
             {
                 TestAppointment.IsLocked = true;
-
-                MessageBox.Show("Test Saved Successfully", "Good", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btn_Save.Enabled = false;
+                rbFail.Enabled = false;
+                rbPass.Enabled = false;
             }
             else
             {
@@ -62,6 +85,7 @@ namespace DVLD_Project.Tests
             if (TestAppointment.Save())
             {
                 MessageBox.Show("Test appointment Locked Successfully", "Good", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                frmScheduledTest_Load(null, null);
             }
             else
             {

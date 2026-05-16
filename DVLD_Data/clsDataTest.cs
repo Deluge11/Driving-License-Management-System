@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -90,7 +91,7 @@ namespace DVLD_Data
                     info.TestAppointmentID = (int)reader["TestAppointmentID"];
                     info.CreatedByUserID = (int)reader["CreatedByUserID"];
                     info.Notes = (string)reader["Notes"];
-                 
+
 
                     isFound = true;
                 }
@@ -111,6 +112,48 @@ namespace DVLD_Data
             return isFound;
         }
 
+        public static bool GetByTestAppointment(int testAppointmentId, out stTestInfo info)
+        {
+            bool isFound = false;
+            string query = @"SELECT * FROM Tests
+                WHERE TestAppointmentID = @TestAppointmentID";
+
+            info = new stTestInfo();
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@TestAppointmentID", testAppointmentId);
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    info.TestID = (int)reader["TestID"];
+                    info.TestResult = (bool)reader["TestResult"];
+                    info.TestAppointmentID = (int)reader["TestAppointmentID"];
+                    info.CreatedByUserID = (int)reader["CreatedByUserID"];
+                    info.Notes = (string)reader["Notes"];
+
+
+                    isFound = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+        }
         public static bool Update(stTestInfo info)
         {
             bool isUpdated = false;

@@ -441,5 +441,43 @@ namespace DVLD_Data
             return 0;
         }
 
+        public static int GetPassedTestsCount(int applicationId)
+        {
+            string query =
+            @"SELECT COUNT(*) FROM Tests T
+            WHERE T.TestResult = 1 AND
+            T.TestAppointmentID IN 
+            (
+            SELECT TP.TestAppointmentID FROM TestAppointments TP
+            WHERE TP.LocalDrivingLicenseApplicationID = @LocalDrivingLicenseApplicationID
+            )";
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@LocalDrivingLicenseApplicationID", applicationId);
+
+            try
+            {
+                sqlConnection.Open();
+                object result = sqlCommand.ExecuteScalar();
+
+                if (result != null && result != DBNull.Value)
+                {
+                    return (int)result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+            return -1;
+        }
     }
+
 }

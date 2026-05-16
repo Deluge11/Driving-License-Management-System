@@ -32,7 +32,7 @@ namespace DVLD_Business
             LocalDrivingLicenseApplicationID = -1;
             LicenseClassID = -1; ;
 
-            ApplicationTypeID =clsApplicationType.ApplicationType.LocalLicense;
+            ApplicationTypeID = clsApplicationType.ApplicationType.LocalLicense;
             LocalMode = enLocalMode.Add;
         }
 
@@ -143,6 +143,13 @@ namespace DVLD_Business
             return clsDataLocalLicenseApplication.DoesPassTestType((int)TestType, LocalDrivingLicenseApplicationID);
         }
 
+        public bool DoesPassAllTests()
+        {
+            return clsDataLocalLicenseApplication.DoesPassTestType((int)clsTestType.enTestType.Vision, LocalDrivingLicenseApplicationID) &&
+             clsDataLocalLicenseApplication.DoesPassTestType((int)clsTestType.enTestType.Written, LocalDrivingLicenseApplicationID) &&
+             clsDataLocalLicenseApplication.DoesPassTestType((int)clsTestType.enTestType.Street, LocalDrivingLicenseApplicationID);
+        }
+
         public bool IsThereActiveTestAppointment(clsTestType.enTestType TestType)
         {
             return clsDataLocalLicenseApplication.IsThereActiveTestAppointment((int)TestType, LocalDrivingLicenseApplicationID);
@@ -151,6 +158,11 @@ namespace DVLD_Business
         public int GetTestTrails(clsTestType.enTestType TestType)
         {
             return clsDataLocalLicenseApplication.GetTestTrails((int)TestType, LocalDrivingLicenseApplicationID);
+        }
+
+        public int GetPassedTestsCount()
+        {
+            return clsDataLocalLicenseApplication.GetPassedTestsCount(LocalDrivingLicenseApplicationID);
         }
 
         private stLocalLicenseApplicationInfo GetInfo()

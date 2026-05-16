@@ -57,13 +57,13 @@ namespace DVLD_Project.Applications.Controls
             if (application == null)
             {
                 SetDefaultValues();
-                MessageBox.Show("This Application Does not exists", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);   
+                MessageBox.Show("This Application Does not exists", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 lbl_ApplicationID.Text = application.LocalDrivingLicenseApplicationID.ToString();
                 lbl_LicenseName.Text = application.LicenseClass.ClassName;
-                lbl_PassedTests.Text = "0/3";
+                lbl_PassedTests.Text = application.GetPassedTestsCount() + " / 3";
                 ucGeneralApplicationDetails.LoadApplication(application.ApplicationID);
             }
 

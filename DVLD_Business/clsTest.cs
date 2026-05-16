@@ -23,8 +23,8 @@ namespace DVLD_Business
 
         public clsTest()
         {
-            TestID = 0;
-            TestAppointmentID = 0;
+            TestID = -1;
+            TestAppointmentID = -1;
             TestResult = false;
             CreatedByUserID = 0;
             Notes = "";
@@ -90,7 +90,14 @@ namespace DVLD_Business
             return false;
         }
 
-
+        public static clsTest GetByTestAppointment(int testAppointmentId)
+        {
+            if (clsDataTest.GetByTestAppointment(testAppointmentId,out stTestInfo info))
+            {
+                return new clsTest(info);
+            }
+            return null;
+        }
         private stTestInfo GetInfo()
         {
             stTestInfo info = new stTestInfo();

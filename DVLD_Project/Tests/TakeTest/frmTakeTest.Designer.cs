@@ -1,6 +1,6 @@
 ﻿namespace DVLD_Project.Tests
 {
-    partial class frmScheduledTest
+    partial class frmTakeTest
     {
         /// <summary>
         /// Required designer variable.

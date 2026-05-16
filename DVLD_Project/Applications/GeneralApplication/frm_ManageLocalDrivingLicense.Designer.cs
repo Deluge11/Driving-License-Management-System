@@ -40,6 +40,8 @@
             this.viewTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.writtenTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drivingTestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createDrivingLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showLicenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showPersonLicenseHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btn_AddLocalDrivingApplication = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_LocalDrivingLicense)).BeginInit();
@@ -80,9 +82,11 @@
             this.deleteApplicationToolStripMenuItem,
             this.cancelApplicationToolStripMenuItem,
             this.sechduleTestsToolStripMenuItem,
+            this.createDrivingLicenseToolStripMenuItem,
+            this.showLicenseToolStripMenuItem,
             this.showPersonLicenseHistoryToolStripMenuItem});
             this.cms_LocalDrivingLicenseApplication.Name = "cms_LocalDrivingLicenseApplication";
-            this.cms_LocalDrivingLicenseApplication.Size = new System.Drawing.Size(310, 196);
+            this.cms_LocalDrivingLicenseApplication.Size = new System.Drawing.Size(310, 293);
             this.cms_LocalDrivingLicenseApplication.Opening += new System.ComponentModel.CancelEventHandler(this.cms_LocalDrivingLicenseApplication_Opening);
             // 
             // showApplicationDetailsToolStripMenuItem
@@ -127,29 +131,44 @@
             // viewTestToolStripMenuItem
             // 
             this.viewTestToolStripMenuItem.Name = "viewTestToolStripMenuItem";
-            this.viewTestToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.viewTestToolStripMenuItem.Size = new System.Drawing.Size(207, 34);
             this.viewTestToolStripMenuItem.Text = "View Test";
             this.viewTestToolStripMenuItem.Click += new System.EventHandler(this.viewTestToolStripMenuItem_Click);
             // 
             // writtenTestToolStripMenuItem
             // 
             this.writtenTestToolStripMenuItem.Name = "writtenTestToolStripMenuItem";
-            this.writtenTestToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.writtenTestToolStripMenuItem.Size = new System.Drawing.Size(207, 34);
             this.writtenTestToolStripMenuItem.Text = "Written Test";
             this.writtenTestToolStripMenuItem.Click += new System.EventHandler(this.writtenTestToolStripMenuItem_Click);
             // 
             // drivingTestToolStripMenuItem
             // 
             this.drivingTestToolStripMenuItem.Name = "drivingTestToolStripMenuItem";
-            this.drivingTestToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.drivingTestToolStripMenuItem.Size = new System.Drawing.Size(207, 34);
             this.drivingTestToolStripMenuItem.Text = "Street Test";
             this.drivingTestToolStripMenuItem.Click += new System.EventHandler(this.drivingTestToolStripMenuItem_Click);
+            // 
+            // createDrivingLicenseToolStripMenuItem
+            // 
+            this.createDrivingLicenseToolStripMenuItem.Name = "createDrivingLicenseToolStripMenuItem";
+            this.createDrivingLicenseToolStripMenuItem.Size = new System.Drawing.Size(309, 32);
+            this.createDrivingLicenseToolStripMenuItem.Text = "Create Driving License";
+            this.createDrivingLicenseToolStripMenuItem.Click += new System.EventHandler(this.createDrivingLicenseToolStripMenuItem_Click);
+            // 
+            // showLicenseToolStripMenuItem
+            // 
+            this.showLicenseToolStripMenuItem.Name = "showLicenseToolStripMenuItem";
+            this.showLicenseToolStripMenuItem.Size = new System.Drawing.Size(309, 32);
+            this.showLicenseToolStripMenuItem.Text = "Show License";
+            this.showLicenseToolStripMenuItem.Click += new System.EventHandler(this.showLicenseToolStripMenuItem_Click);
             // 
             // showPersonLicenseHistoryToolStripMenuItem
             // 
             this.showPersonLicenseHistoryToolStripMenuItem.Name = "showPersonLicenseHistoryToolStripMenuItem";
             this.showPersonLicenseHistoryToolStripMenuItem.Size = new System.Drawing.Size(309, 32);
             this.showPersonLicenseHistoryToolStripMenuItem.Text = "Show Person License History";
+            this.showPersonLicenseHistoryToolStripMenuItem.Click += new System.EventHandler(this.showPersonLicenseHistoryToolStripMenuItem_Click);
             // 
             // btn_AddLocalDrivingApplication
             // 
@@ -194,5 +213,7 @@
         private System.Windows.Forms.ToolStripMenuItem viewTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem writtenTestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem drivingTestToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createDrivingLicenseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showLicenseToolStripMenuItem;
     }
 }

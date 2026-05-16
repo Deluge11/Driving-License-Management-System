@@ -152,6 +152,11 @@ namespace DVLD_Business
             return clsDataPeople.IsUser(PersonID);
         }
 
+        public bool IsDriver()
+        {
+            return clsDataPeople.IsDriver(PersonID);
+        }
+
         public static DataTable GetAll()
         {
             return clsDataPeople.GetAll();

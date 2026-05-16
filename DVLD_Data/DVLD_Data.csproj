@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="clsDataApplication.cs" />
+    <Compile Include="clsDataDriver.cs" />
+    <Compile Include="clsDataInternationalLicense.cs" />
+    <Compile Include="clsDataLicense.cs" />
     <Compile Include="clsDataLocalLicenseApplication.cs" />
     <Compile Include="clsDataLicenseClass.cs" />
     <Compile Include="clsDataTest.cs" />
@@ -52,6 +55,9 @@
     <Compile Include="clsDataPeople.cs" />
     <Compile Include="clsDataUser.cs" />
     <Compile Include="ConnectionStrings.cs" />
+    <Compile Include="InfoStructs\stDriverInfo.cs" />
+    <Compile Include="InfoStructs\stInternationalLicense.cs" />
+    <Compile Include="InfoStructs\stLicenseInfo.cs" />
     <Compile Include="InfoStructs\stLocalLicenseApplicationInfo.cs" />
     <Compile Include="InfoStructs\stApplicationInfo.cs" />
     <Compile Include="InfoStructs\stLicenseClassInfo.cs" />

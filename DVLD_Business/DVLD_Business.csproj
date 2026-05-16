@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsInternationalLicense.cs" />
+    <Compile Include="clsLicense.cs" />
     <Compile Include="clsLicenseClass.cs" />
     <Compile Include="clsLocalLicenseApplication.cs" />
+    <Compile Include="clsDriver.cs" />
     <Compile Include="clsTest.cs" />
     <Compile Include="clsTestAppointment.cs" />
     <Compile Include="clsTestType.cs" />
