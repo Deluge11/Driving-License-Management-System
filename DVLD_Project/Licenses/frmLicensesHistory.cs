@@ -34,7 +34,7 @@ namespace DVLD_Project.Licenses
             uc_PersonDetailsWithFilter.FilterEnabled = false;
             uc_PersonDetailsWithFilter.AddPersonEnabled = false;
             uc_PersonDetailsWithFilter.LoadPersonInfo(Driver.PersonID);
-            dgv_LocalLicense.DataSource = clsLicense.GetAll(Driver.DriverID);
+            dgv_LocalLicense.DataSource = clsLicense.GetByDriverId(Driver.DriverID);
             dgv_InternationalLicense.DataSource = clsInternationalLicense.GetAllInternationalLicenses(Driver.DriverID);
         }
     }

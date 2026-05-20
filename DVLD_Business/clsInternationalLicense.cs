@@ -12,11 +12,24 @@ namespace DVLD_Business
 {
     public class clsInternationalLicense : clsLicense
     {
+        public static int ExpiryYears = 5;
+
         public enum enLocalMode { Add, Update }
         public enLocalMode LocalMode { get; protected set; }
 
         public int InternationalLicenseID { get; private set; }
         public int IssuedUsingLocalLicenseID { get; set; }
+        public clsLicense License
+        {
+            get
+            {
+                return clsLicense.GetByLicenseId(IssuedUsingLocalLicenseID);
+            }
+        }
+        //public int DriverID { set; get; }
+        //public DateTime IssueDate { set; get; }
+        //public DateTime ExpirationDate { set; get; }
+        //public bool IsActive { set; get; }
 
         public clsInternationalLicense()
         {
@@ -25,7 +38,7 @@ namespace DVLD_Business
             DriverID = 0;
             IssuedUsingLocalLicenseID = 0;
             IssueDate = DateTime.UtcNow;
-            ExpirationDate = DateTime.UtcNow;
+            ExpirationDate = DateTime.UtcNow.AddYears(ExpiryYears);
             IsActive = true;
             CreatedByUserID = 0;
 
@@ -47,43 +60,71 @@ namespace DVLD_Business
         }
 
 
-        //public virtual bool Save()
-        //{
-        //    switch (Mode)
-        //    {
-        //        case enMode.Add:
-        //            if (Add())
-        //            {
-        //                Mode = enMode.Update;
-        //                return true;
-        //            }
-        //            else
-        //            {
-        //                return false;
-        //            }
+        public override bool Save()
+        {
+            if (!base.Save())
+            {
+                return false;
+            }
 
-        //        case enMode.Update:
-        //            return Update();
+            switch (Mode)
+            {
+                case enMode.Add:
+                    if (Add())
+                    {
+                        Mode = enMode.Update;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
 
-        //        default:
-        //            return false;
-        //    }
-        //}
+                case enMode.Update:
+                    return Update();
 
-        //private bool Update()
-        //{
-        //    return clsDataLicense.Update(GetInfo());
-        //}
+                default:
+                    return false;
+            }
+        }
 
-        //private bool Add()
-        //{
-        //    if (clsDataLicense.Add(GetInfo(), out int licenseId))
-        //    {
-        //        this.LicenseID = licenseId;
-        //        return true;
-        //    }
-        //    return false;
-        //}
+        private bool Update()
+        {
+            return clsDataInternationalLicense.Update(GetInfo());
+        }
+
+        private bool Add()
+        {
+            if (clsDataInternationalLicense.Add(GetInfo(), out int licenseId))
+            {
+                this.InternationalLicenseID = licenseId;
+                return true;
+            }
+            return false;
+        }
+
+        public static clsInternationalLicense GetByInternationalLicenseId(int licenseId)
+        {
+            if (clsDataInternationalLicense.GetByInternationalLicenseId(licenseId, out stInternationalLicense info))
+            {
+                return new clsInternationalLicense(info);
+            }
+            return null;
+        }
+
+        public static clsInternationalLicense GetByLocalLicenseId(int licenseId)
+        {
+            if (clsDataInternationalLicense.GetByLocalLicenseId(licenseId, out stInternationalLicense info))
+            {
+                return new clsInternationalLicense(info);
+            }
+            return null;
+        }
+
+        public static bool IsDriverHaveInternationalLicense(int driverId)
+        {
+            return clsDataInternationalLicense.IsDriverHaveInternationalLicense(driverId);
+        }
 
         public static DataTable GetAllInternationalLicenses()
         {
@@ -99,28 +140,17 @@ namespace DVLD_Business
         {
             stInternationalLicense info = new stInternationalLicense();
 
-           info.InternationalLicenseID = InternationalLicenseID;
-           info.ApplicationID = ApplicationID;
-           info.DriverID = DriverID;
-           info.IssuedUsingLocalLicenseID = IssuedUsingLocalLicenseID;
-           info.IssueDate = IssueDate;
-           info.ExpirationDate = ExpirationDate;
-           info.IsActive = IsActive;
-           info.CreatedByUserID = CreatedByUserID;
+            info.InternationalLicenseID = InternationalLicenseID;
+            info.ApplicationID = ApplicationID;
+            info.DriverID = DriverID;
+            info.IssuedUsingLocalLicenseID = IssuedUsingLocalLicenseID;
+            info.IssueDate = IssueDate;
+            info.ExpirationDate = ExpirationDate;
+            info.IsActive = IsActive;
+            info.CreatedByUserID = CreatedByUserID;
 
             return info;
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

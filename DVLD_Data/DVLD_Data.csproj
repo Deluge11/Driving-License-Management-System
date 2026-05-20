@@ -55,6 +55,8 @@
     <Compile Include="clsDataPeople.cs" />
     <Compile Include="clsDataUser.cs" />
     <Compile Include="ConnectionStrings.cs" />
+    <Compile Include="clsDataDetainedLicense.cs" />
+    <Compile Include="InfoStructs\stDetainedLicenseInfo.cs" />
     <Compile Include="InfoStructs\stDriverInfo.cs" />
     <Compile Include="InfoStructs\stInternationalLicense.cs" />
     <Compile Include="InfoStructs\stLicenseInfo.cs" />

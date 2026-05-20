@@ -2,6 +2,8 @@
 using DVLD_Project.Applications;
 using DVLD_Project.ApplicationTypes;
 using DVLD_Project.Classes;
+using DVLD_Project.InternationalLicense;
+using DVLD_Project.Licenses;
 using DVLD_Project.Users;
 using System;
 using System.Collections.Generic;
@@ -102,6 +104,21 @@ namespace DVLD_Project
         private void localDrivingLicenseApplicationsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new frm_ManageLocalDrivingLicense().ShowDialog();
+        }
+
+        private void internationalDrivingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmIssueInternationalLicense().ShowDialog();
+        }
+
+        private void detainLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmDetainLicense().ShowDialog();
+        }
+
+        private void releaseLicenseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmReleaseLicense().ShowDialog();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DVLD_Business
@@ -13,7 +14,9 @@ namespace DVLD_Business
     public class clsLicense
     {
         public enum enMode { Add, Update }
+        public enum enIssueReason { New, ReNew, DamagedReplacement, LostReplacement }
         public enMode Mode { get; protected set; }
+        public enIssueReason IssueReason { get; set; }
 
         public int LicenseID { get; private set; }
         public int ApplicationID { get; set; }
@@ -24,8 +27,46 @@ namespace DVLD_Business
         public string Notes { get; set; }
         public decimal PaidFees { get; set; }
         public bool IsActive { get; set; }
-        public byte IssueReason { get; set; }
         public int CreatedByUserID { get; set; }
+        public clsUser CreateByUser
+        {
+            get
+            {
+                return clsUser.Get(CreatedByUserID);
+            }
+        }
+
+        public clsDriver Driver
+        {
+            get
+            {
+                return clsDriver.GetById(DriverID);
+            }
+        }
+
+        public clsApplication Application
+        {
+            get
+            {
+                return clsApplication.Get(ApplicationID);
+            }
+        }
+
+        public bool IsDetained
+        {
+            get
+            {
+                return clsDetainedLicense.IsLicenseDetained(this.LicenseID);
+            }
+        }
+
+        public bool IsExpired
+        {
+            get
+            {
+                return DateTime.Now > ExpirationDate;
+            }
+        }
 
         public clsLicense()
         {
@@ -56,7 +97,7 @@ namespace DVLD_Business
             Notes = info.Notes;
             PaidFees = info.PaidFees;
             IsActive = info.IsActive;
-            IssueReason = info.IssueReason;
+            IssueReason = (enIssueReason)info.IssueReason;
             CreatedByUserID = info.CreatedByUserID;
 
             Mode = enMode.Update;
@@ -124,9 +165,109 @@ namespace DVLD_Business
             return clsDataLicense.GetAll();
         }
 
-        public static DataTable GetAll(int driverId)
+        public static DataTable GetByDriverId(int driverId)
         {
-            return clsDataLicense.GetAll(driverId);
+            return clsDataLicense.GetByDriverId(driverId);
+        }
+
+        public clsDetainedLicense Detain(int createByUser, decimal fees)
+        {
+            if (IsDetained)
+            {
+                return null;
+            }
+
+            clsDetainedLicense detainInfo = new clsDetainedLicense();
+
+            detainInfo.DetainDate = DateTime.Now;
+            detainInfo.CreatedByUserID = createByUser;
+            detainInfo.LicenseID = this.LicenseID;
+            detainInfo.CreatedByUserID = createByUser;
+            detainInfo.FineFees = fees;
+
+            if (!detainInfo.Save())
+            {
+                return null;
+            }
+
+            return detainInfo;
+        }
+
+        public bool Release(int createByUser)
+        {
+            clsDetainedLicense DetainInfo = clsDetainedLicense.GetByLicenseId(this.LicenseID);
+
+            if (DetainInfo == null)
+            {
+                return false;
+            }
+
+            clsApplicationType appType = clsApplicationType.Get(clsApplicationType.ApplicationType.ReleaseDentainedLicense);
+            clsApplication application = new clsApplication();
+
+            application.PaidFees = appType.ApplicationFees;
+            application.ApplicantPersonID = Driver.PersonID;
+            application.ApplicationTypeID = appType.ApplicationTypeID;
+            application.CreatedByUserID = createByUser;
+
+            if (!application.Save())
+            {
+                return false;
+            }
+
+            DetainInfo.ReleaseDate = DateTime.Now;
+            DetainInfo.ReleasedByUserID = createByUser;
+            DetainInfo.ReleaseApplicationID = application.ApplicationID;
+            DetainInfo.IsReleased = true;
+
+            if (!DetainInfo.Save())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public clsLicense ReNewLicense(int createdByUser)
+        {
+            if (!IsExpired)
+            {
+                return null;
+            }
+
+            clsApplicationType appType = clsApplicationType.Get(clsApplicationType.ApplicationType.RenewLicense);
+            clsApplication renewApp = new clsApplication();
+
+            renewApp.ApplicantPersonID = this.Application.ApplicantPersonID;
+            renewApp.ApplicationTypeID = appType.ApplicationTypeID;
+            renewApp.PaidFees = appType.ApplicationFees;
+            renewApp.CreatedByUserID = createdByUser;
+
+            if (!renewApp.Save())
+            {
+                return null;
+            }
+
+            clsLicenseClass licenseClass = clsLicenseClass.Get(this.LicenseClass);
+            clsLicense newLicense = new clsLicense();
+            newLicense.ApplicationID = renewApp.ApplicationID;
+            newLicense.DriverID = this.DriverID;
+            newLicense.LicenseClass = licenseClass.LicenseClassID;
+            newLicense.IssueDate = DateTime.Now;
+            newLicense.ExpirationDate = DateTime.Now.AddYears(licenseClass.DefaultValidityLength);
+            newLicense.PaidFees = licenseClass.ClassFees;
+            newLicense.IsActive = true;
+            newLicense.IssueReason = enIssueReason.ReNew;
+            newLicense.CreatedByUserID = createdByUser;
+
+            this.IsActive = false;
+
+            if (!Save() || !newLicense.Save())
+            {
+                return null;
+            }
+
+            return newLicense;
         }
 
         private stLicenseInfo GetInfo()
@@ -142,50 +283,12 @@ namespace DVLD_Business
             info.Notes = Notes;
             info.PaidFees = PaidFees;
             info.IsActive = IsActive;
-            info.IssueReason = IssueReason;
+            info.IssueReason = (byte)IssueReason;
             info.CreatedByUserID = CreatedByUserID;
 
             return info;
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        public static bool DoesPersonHaveActiveApplication(int PersonID, int ApplicationTypeID)
-        {
-            return clsApplicationData.DoesPersonHaveActiveApplication(PersonID, ApplicationTypeID);
-        }
-
-        public bool DoesPersonHaveActiveApplication(int ApplicationTypeID)
-        {
-            return DoesPersonHaveActiveApplication(this.ApplicantPersonID, ApplicationTypeID);
-        }
-
-        public static int GetActiveApplicationID(int PersonID, clsApplication.enApplicationType ApplicationTypeID)
-        {
-            return clsApplicationData.GetActiveApplicationID(PersonID, (int)ApplicationTypeID);
-        }
-
-        public static int GetActiveApplicationIDForLicenseClass(int PersonID, clsApplication.enApplicationType ApplicationTypeID, int LicenseClassID)
-        {
-            return clsApplicationData.GetActiveApplicationIDForLicenseClass(PersonID, (int)ApplicationTypeID, LicenseClassID);
-        }
-
-        public int GetActiveApplicationID(clsApplication.enApplicationType ApplicationTypeID)
-        {
-            return GetActiveApplicationID(this.ApplicantPersonID, ApplicationTypeID);
-        }
-        */
     }
 }

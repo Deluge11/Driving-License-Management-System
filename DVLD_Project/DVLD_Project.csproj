@@ -50,11 +50,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InternationalLicense\frmIssueInternationalLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InternationalLicense\frmIssueInternationalLicense.Designer.cs">
+      <DependentUpon>frmIssueInternationalLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InternationalLicense\ucInternationalDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InternationalLicense\ucInternationalDetails.Designer.cs">
+      <DependentUpon>ucInternationalDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InternationalLicense\ucLicenseDetailsWithFilter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InternationalLicense\ucLicenseDetailsWithFilter.Designer.cs">
+      <DependentUpon>ucLicenseDetailsWithFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Licenses\frmCreateLocalDrivingLicense.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Licenses\frmCreateLocalDrivingLicense.Designer.cs">
       <DependentUpon>frmCreateLocalDrivingLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Licenses\frmDetainLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Licenses\frmDetainLicense.Designer.cs">
+      <DependentUpon>frmDetainLicense.cs</DependentUpon>
     </Compile>
     <Compile Include="Licenses\frmLicensesHistory.cs">
       <SubType>Form</SubType>
@@ -67,6 +91,12 @@
     </Compile>
     <Compile Include="Licenses\frmLocalDrivingLicenseDetails.Designer.cs">
       <DependentUpon>frmLocalDrivingLicenseDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Licenses\frmReleaseLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Licenses\frmReleaseLicense.Designer.cs">
+      <DependentUpon>frmReleaseLicense.cs</DependentUpon>
     </Compile>
     <Compile Include="Licenses\ucLocalDrivingLicenseDetails.cs">
       <SubType>UserControl</SubType>
@@ -249,14 +279,29 @@
     <EmbeddedResource Include="Applications\Controls\ucLocalDrivingApplicationDetails.resx">
       <DependentUpon>ucLocalDrivingApplicationDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InternationalLicense\frmIssueInternationalLicense.resx">
+      <DependentUpon>frmIssueInternationalLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InternationalLicense\ucInternationalDetails.resx">
+      <DependentUpon>ucInternationalDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InternationalLicense\ucLicenseDetailsWithFilter.resx">
+      <DependentUpon>ucLicenseDetailsWithFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Licenses\frmCreateLocalDrivingLicense.resx">
       <DependentUpon>frmCreateLocalDrivingLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Licenses\frmDetainLicense.resx">
+      <DependentUpon>frmDetainLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Licenses\frmLicensesHistory.resx">
       <DependentUpon>frmLicensesHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Licenses\frmLocalDrivingLicenseDetails.resx">
       <DependentUpon>frmLocalDrivingLicenseDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Licenses\frmReleaseLicense.resx">
+      <DependentUpon>frmReleaseLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Licenses\ucLocalDrivingLicenseDetails.resx">
       <DependentUpon>ucLocalDrivingLicenseDetails.cs</DependentUpon>

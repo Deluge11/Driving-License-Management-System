@@ -96,55 +96,99 @@ namespace DVLD_Data
             return dt;
         }
 
-        //public static bool GetByLicenseId(int id, out stLicenseInfo info)
-        //{
-        //    bool isFound = false;
-        //    string query = "SELECT * FROM Licenses WHERE LicenseID = @LicenseID";
-        //    SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
-        //    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+        public static bool GetByInternationalLicenseId(int id, out stInternationalLicense info)
+        {
+            bool isFound = false;
+            string query = "SELECT * FROM InternationalLicenses WHERE InternationalLicenseID = @InternationalLicenseID";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
-        //    sqlCommand.Parameters.AddWithValue("@LicenseID", id);
+            sqlCommand.Parameters.AddWithValue("@InternationalLicenseID", id);
 
-        //    info = new stLicenseInfo();
+            info = new stInternationalLicense();
 
-        //    try
-        //    {
-        //        sqlConnection.Open();
-        //        SqlDataReader reader = sqlCommand.ExecuteReader();
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
 
-        //        if (reader.Read())
-        //        {
-        //            info.LicenseID = (int)reader["LicenseID"];
-        //            info.ApplicationID = (int)reader["ApplicationID"];
-        //            info.DriverID = (int)reader["DriverID"];
-        //            info.LicenseClass = (int)reader["LicenseClass"];
-        //            info.IssueDate = (DateTime)reader["IssueDate"];
-        //            info.ExpirationDate = (DateTime)reader["ExpirationDate"];
-        //            info.Notes = (string)reader["Notes"];
-        //            info.PaidFees = (decimal)reader["PaidFees"];
-        //            info.IsActive = (bool)reader["IsActive"];
-        //            info.IssueReason = (byte)reader["IssueReason"];
-        //            info.CreatedByUserID = (int)reader["CreatedByUserID"];
+                if (reader.Read())
+                {
+                    info.InternationalLicenseID = (int)reader["InternationalLicenseID"];
+                    info.ApplicationID = (int)reader["ApplicationID"];
+                    info.DriverID = (int)reader["DriverID"];
+                    info.IssueDate = (DateTime)reader["IssueDate"];
+                    info.ExpirationDate = (DateTime)reader["ExpirationDate"];
+                    info.IsActive = (bool)reader["IsActive"];
+                    info.IssuedUsingLocalLicenseID = (int)reader["IssuedUsingLocalLicenseID"];
+                    info.CreatedByUserID = (int)reader["CreatedByUserID"];
 
-        //            isFound = true;
-        //        }
+                    isFound = true;
+                }
 
-        //        reader.Close();
+                reader.Close();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        sqlConnection.Close();
-        //    }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
 
 
-        //    return isFound;
+            return isFound;
 
-        //}
+        }
+
+        public static bool GetByLocalLicenseId(int id, out stInternationalLicense info)
+        {
+            bool isFound = false;
+            string query = "SELECT * FROM InternationalLicenses WHERE IssuedUsingLocalLicenseID = @IssuedUsingLocalLicenseID";
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@InternationalLicenseID", id);
+
+            info = new stInternationalLicense();
+
+            try
+            {
+                sqlConnection.Open();
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    info.InternationalLicenseID = (int)reader["InternationalLicenseID"];
+                    info.ApplicationID = (int)reader["ApplicationID"];
+                    info.DriverID = (int)reader["DriverID"];
+                    info.IssueDate = (DateTime)reader["IssueDate"];
+                    info.ExpirationDate = (DateTime)reader["ExpirationDate"];
+                    info.IsActive = (bool)reader["IsActive"];
+                    info.IssuedUsingLocalLicenseID = (int)reader["IssuedUsingLocalLicenseID"];
+                    info.CreatedByUserID = (int)reader["CreatedByUserID"];
+
+                    isFound = true;
+                }
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return isFound;
+
+        }
 
         //public static bool GetByApplicationId(int id, out stLicenseInfo info)
         //{
@@ -196,130 +240,157 @@ namespace DVLD_Data
 
         //}
 
-        //public static bool Update(stLicenseInfo info)
-        //{
-        //    bool isUpdated = false;
-        //    string query = @"
-        //        UPDATE Licenses
-        //        SET
-        //        ApplicationID   =  @ApplicationID,
-        //        CreatedByUserID =  @CreatedByUserID,
-        //        PaidFees        =  @PaidFees,
-        //        IsActive        =  @IsActive,
-        //        DriverID        =  @DriverID,
-        //        LicenseClass    =  @LicenseClass,
-        //        ExpirationDate  =  @ExpirationDate,
-        //        IssueDate       =  @IssueDate,
-        //        IssueReason     =  @IssueReason,
-        //        Notes           =  @Notes
-        //        WHERE LicenseID = @LicenseID";
+        public static bool Update(stInternationalLicense info)
+        {
+            bool isUpdated = false;
+            string query = @"
+                UPDATE InternationalLicenses
+                SET
+                ApplicationID                =  @ApplicationID,
+                DriverID                     =  @DriverID,
+                IssuedUsingLocalLicenseID    =  @IssuedUsingLocalLicenseID,
+                IssueDate                    =  @IssueDate,
+                ExpirationDate               =  @ExpirationDate,
+                IsActive                     =  @IsActive,
+                CreatedByUserID              =  @CreatedByUserID
+                WHERE InternationalLicenseID = @InternationalLicenseID";
 
-        //    SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
-        //    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-
-        //    sqlCommand.Parameters.AddWithValue("@LicenseID", info.LicenseID);
-        //    sqlCommand.Parameters.AddWithValue("@ApplicationID", info.ApplicationID);
-        //    sqlCommand.Parameters.AddWithValue("@CreatedByUserID", info.CreatedByUserID);
-        //    sqlCommand.Parameters.AddWithValue("@PaidFees", info.PaidFees);
-        //    sqlCommand.Parameters.AddWithValue("@IsActive", info.IsActive);
-        //    sqlCommand.Parameters.AddWithValue("@DriverID", info.DriverID);
-        //    sqlCommand.Parameters.AddWithValue("@LicenseClass", info.LicenseClass);
-        //    sqlCommand.Parameters.AddWithValue("@ExpirationDate", info.ExpirationDate);
-        //    sqlCommand.Parameters.AddWithValue("@IssueDate", info.IssueDate);
-        //    sqlCommand.Parameters.AddWithValue("@IssueReason", info.IssueReason);
-        //    sqlCommand.Parameters.AddWithValue("@Notes", info.Notes);
-
-        //    try
-        //    {
-        //        sqlConnection.Open();
-        //        isUpdated = sqlCommand.ExecuteNonQuery() > 0;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        sqlConnection.Close();
-        //    }
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
 
-        //    return isUpdated;
-        //}
+            sqlCommand.Parameters.AddWithValue("@InternationalLicenseID", info.InternationalLicenseID);
+            sqlCommand.Parameters.AddWithValue("@ApplicationID", info.ApplicationID);
+            sqlCommand.Parameters.AddWithValue("@DriverID", info.DriverID);
+            sqlCommand.Parameters.AddWithValue("@IssuedUsingLocalLicenseID", info.IssuedUsingLocalLicenseID);
+            sqlCommand.Parameters.AddWithValue("@IssueDate", info.IssueDate);
+            sqlCommand.Parameters.AddWithValue("@ExpirationDate", info.ExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@IsActive", info.IsActive);
+            sqlCommand.Parameters.AddWithValue("@CreatedByUserID", info.CreatedByUserID);
 
-        //public static bool Add(stLicenseInfo info, out int licenseId)
-        //{
-        //    licenseId = -1;
+            try
+            {
+                sqlConnection.Open();
+                isUpdated = sqlCommand.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
 
-        //    bool isInserted = false;
-        //    string query = @"
-        //        INSERT INTO Licenses
-        //        (
-        //            ApplicationID,
-        //            CreatedByUserID,
-        //            PaidFees,
-        //            IsActive,
-        //            DriverID,
-        //            LicenseClass,
-        //            ExpirationDate,
-        //            IssueDate,
-        //            IssueReason,
-        //            Notes
-        //        )
-        //        VALUES
-        //        (
-        //            @ApplicationID,
-        //            @CreatedByUserID,
-        //            @PaidFees,
-        //            @IsActive,
-        //            @DriverID,
-        //            @LicenseClass,
-        //            @ExpirationDate,
-        //            @IssueDate,
-        //            @IssueReason,
-        //            @Notes
-        //        );
+
+            return isUpdated;
+        }
+
+        public static bool Add(stInternationalLicense info, out int licenseId)
+        {
+            licenseId = -1;
+
+            bool isInserted = false;
+            string query = @"
+                INSERT INTO InternationalLicenses
+                (
+                    ApplicationID,
+                    DriverID,
+                    IssuedUsingLocalLicenseID,
+                    IssueDate,
+                    ExpirationDate,
+                    IsActive,
+                    CreatedByUserID
+                )
+                VALUES
+                (
+                    @ApplicationID,
+                    @DriverID,
+                    @IssuedUsingLocalLicenseID,
+                    @IssueDate,
+                    @ExpirationDate,
+                    @IsActive,
+                    @CreatedByUserID
+                );
                 
-        //        SELECT SCOPE_IDENTITY();";
+                SELECT SCOPE_IDENTITY();";
 
-        //    SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
-        //    SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
 
-        //    sqlCommand.Parameters.AddWithValue("@ApplicationID", info.ApplicationID);
-        //    sqlCommand.Parameters.AddWithValue("@CreatedByUserID", info.CreatedByUserID);
-        //    sqlCommand.Parameters.AddWithValue("@PaidFees", info.PaidFees);
-        //    sqlCommand.Parameters.AddWithValue("@IsActive", info.IsActive);
-        //    sqlCommand.Parameters.AddWithValue("@DriverID", info.DriverID);
-        //    sqlCommand.Parameters.AddWithValue("@LicenseClass", info.LicenseClass);
-        //    sqlCommand.Parameters.AddWithValue("@ExpirationDate", info.ExpirationDate);
-        //    sqlCommand.Parameters.AddWithValue("@IssueDate", info.IssueDate);
-        //    sqlCommand.Parameters.AddWithValue("@IssueReason", info.IssueReason);
-        //    sqlCommand.Parameters.AddWithValue("@Notes", info.Notes);
+            sqlCommand.Parameters.AddWithValue("@ApplicationID", info.ApplicationID);
+            sqlCommand.Parameters.AddWithValue("@DriverID", info.DriverID);
+            sqlCommand.Parameters.AddWithValue("@IssuedUsingLocalLicenseID", info.IssuedUsingLocalLicenseID);
+            sqlCommand.Parameters.AddWithValue("@IssueDate", info.IssueDate);
+            sqlCommand.Parameters.AddWithValue("@ExpirationDate", info.ExpirationDate);
+            sqlCommand.Parameters.AddWithValue("@IsActive", info.IsActive);
+            sqlCommand.Parameters.AddWithValue("@CreatedByUserID", info.CreatedByUserID);
 
-        //    try
-        //    {
-        //        sqlConnection.Open();
-        //        object result = sqlCommand.ExecuteScalar();
+            try
+            {
+                sqlConnection.Open();
+                object result = sqlCommand.ExecuteScalar();
 
-        //        if (result != null && result != DBNull.Value)
-        //        {
-        //            licenseId = Convert.ToInt32(result);
-        //            isInserted = true;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        isInserted = false;
-        //    }
-        //    finally
-        //    {
-        //        sqlConnection.Close();
-        //    }
+                if (result != null && result != DBNull.Value)
+                {
+                    licenseId = Convert.ToInt32(result);
+                    isInserted = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                isInserted = false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
 
 
-        //    return isInserted;
-        //}
+            return isInserted;
+        }
+
+        public static bool IsDriverHaveInternationalLicense(int driverId)
+        {
+            bool found = false;
+            string query =
+            @"SELECT Found = 1 FROM InternationalLicenses IL
+            WHERE IL.IssuedUsingLocalLicenseID IN
+            (
+            SELECT L.LicenseID FROM Licenses L
+            WHERE L.DriverID = @DriverId
+            )";
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionStrings.Default);
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@DriverId", driverId);
+
+            try
+            {
+                sqlConnection.Open();
+                object result = sqlCommand.ExecuteScalar();
+
+                if (result != null && result != DBNull.Value)
+                {
+                    found = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                found = false;
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+
+
+            return found;
+        }
+        
 
     }
 }

@@ -192,7 +192,32 @@ namespace DVLD_Business
         }
 
 
+        /*
+public static bool DoesPersonHaveActiveApplication(int PersonID, int ApplicationTypeID)
+{
+    return clsApplicationData.DoesPersonHaveActiveApplication(PersonID, ApplicationTypeID);
+}
 
+public bool DoesPersonHaveActiveApplication(int ApplicationTypeID)
+{
+    return DoesPersonHaveActiveApplication(this.ApplicantPersonID, ApplicationTypeID);
+}
+
+public static int GetActiveApplicationID(int PersonID, clsApplication.enApplicationType ApplicationTypeID)
+{
+    return clsApplicationData.GetActiveApplicationID(PersonID, (int)ApplicationTypeID);
+}
+
+public static int GetActiveApplicationIDForLicenseClass(int PersonID, clsApplication.enApplicationType ApplicationTypeID, int LicenseClassID)
+{
+    return clsApplicationData.GetActiveApplicationIDForLicenseClass(PersonID, (int)ApplicationTypeID, LicenseClassID);
+}
+
+public int GetActiveApplicationID(clsApplication.enApplicationType ApplicationTypeID)
+{
+    return GetActiveApplicationID(this.ApplicantPersonID, ApplicationTypeID);
+}
+*/
 
 
 

@@ -54,8 +54,8 @@ namespace DVLD_Project.Licenses
                 lbl_Gender.Text = Person.Gender == 0 ? "Male" : "Female";
                 lbl_NationalNo.Text = Person.NationalNo;
                 lbl_IsActive.Text = License.IsActive ? "Yes" : "No";
-                lbl_IsDetained.Text = "i dont know";
-                lbl_IssueReason.Text = "I dont Know";
+                lbl_IsDetained.Text = License.IsDetained ? "Yes" : "No";
+                lbl_IssueReason.Text = License.IssueReason.ToString();
                 lbl_LicenseID.Text = License.LicenseID.ToString();
             }
         }

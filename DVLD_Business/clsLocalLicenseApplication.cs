@@ -165,6 +165,53 @@ namespace DVLD_Business
             return clsDataLocalLicenseApplication.GetPassedTestsCount(LocalDrivingLicenseApplicationID);
         }
 
+        public int IssueLicenseForFirstTime(int createdByUser)
+        {
+            if (!DoesPassAllTests())
+            {
+                return -1;
+            }
+
+            clsDriver Driver;
+            if (ApplicationPersonInfo.IsDriver())
+            {
+                Driver = clsDriver.GetByPersonId(ApplicantPersonID);
+            }
+            else
+            {
+                Driver = new clsDriver();
+                Driver.PersonID = ApplicantPersonID;
+                Driver.CreatedByUserID = createdByUser;
+            }
+
+            if (!Driver.Save())
+            {
+                return -1;
+            }
+
+            clsLicense license = new clsLicense();
+            license.ApplicationID = ApplicationID;
+            license.IssueDate = DateTime.UtcNow;
+            license.ExpirationDate = DateTime.UtcNow.AddYears(LicenseClass.DefaultValidityLength);
+            license.PaidFees = LicenseClass.ClassFees;
+            license.CreatedByUserID = createdByUser;
+            license.IsActive = true;
+            license.Notes = "";
+            license.LicenseClass = LicenseClass.LicenseClassID;
+            license.DriverID = Driver.DriverID;
+            license.IssueReason = clsLicense.enIssueReason.New;
+
+            if (license.Save())
+            {
+                this.SetComplete();
+                return license.LicenseID;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
         private stLocalLicenseApplicationInfo GetInfo()
         {
             stLocalLicenseApplicationInfo info = new stLocalLicenseApplicationInfo();

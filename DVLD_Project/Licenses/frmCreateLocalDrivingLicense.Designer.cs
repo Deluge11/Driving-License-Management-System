@@ -58,6 +58,7 @@
             this.Controls.Add(this.ucLocalDrivingApplicationDetails);
             this.Name = "frmCreateLocalDrivingLicense";
             this.Text = "frmCreateLocalDrivingLicense";
+            this.Load += new System.EventHandler(this.frmCreateLocalDrivingLicense_Load);
             this.ResumeLayout(false);
 
         }

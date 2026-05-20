@@ -21,28 +21,8 @@ namespace DVLD_Project.Licenses
         public frmCreateLocalDrivingLicense(int localDrivingLicenseAppId)
         {
             InitializeComponent();
-
             LocalDrivingLicenseApp = clsLocalLicenseApplication.GetByLocalId(localDrivingLicenseAppId);
             LicenseClass = clsLicenseClass.Get(LocalDrivingLicenseApp.LicenseClassID);
-
-            if (LocalDrivingLicenseApp == null)
-            {
-                this.Close();
-                return;
-            }
-
-            if (LocalDrivingLicenseApp.ApplicationPersonInfo.IsDriver())
-            {
-                Driver = clsDriver.GetByPersonId(LocalDrivingLicenseApp.ApplicantPersonID);
-            }
-            else
-            {
-                Driver = new clsDriver();
-                Driver.PersonID = LocalDrivingLicenseApp.ApplicantPersonID;
-                Driver.CreatedByUserID = clsGlobal.CurrentUser.UserID;
-            }
-
-            ucLocalDrivingApplicationDetails.LoadApplicationByLocalApplicationId(localDrivingLicenseAppId);
         }
 
         private void btn_Issue_Click(object sender, EventArgs e)
@@ -53,40 +33,32 @@ namespace DVLD_Project.Licenses
                 return;
             }
 
-            if (!LocalDrivingLicenseApp.ApplicationPersonInfo.IsDriver() && !Driver.Save())
+            int licenseId = LocalDrivingLicenseApp.IssueLicenseForFirstTime(clsGlobal.CurrentUser.UserID);
+            if (licenseId != -1)
             {
-                MessageBox.Show("Driver Not Created");
-                return;
-            }
-
-            if (LocalDrivingLicenseApp.ApplicationStatus != clsApplication.enApplicationStatus.New)
-            {
-                MessageBox.Show("Local Driving License Application Is Closed");
-                return;
-            }
-
-            clsLicense license = new clsLicense();
-            license.ApplicationID = LocalDrivingLicenseApp.ApplicationID;
-            license.IssueDate = DateTime.UtcNow;
-            license.ExpirationDate = DateTime.UtcNow.AddYears(LicenseClass.DefaultValidityLength);
-            license.PaidFees = LicenseClass.ClassFees;
-            license.CreatedByUserID = clsGlobal.CurrentUser.UserID;
-            license.IsActive = true;
-            license.Notes = "";
-            license.LicenseClass = LicenseClass.LicenseClassID;
-            license.DriverID = Driver.DriverID;
-
-            if (license.Save())
-            {
-                MessageBox.Show("License Created Successfully");
-                LocalDrivingLicenseApp.SetComplete();
+                MessageBox.Show("Ok");
             }
             else
             {
-                MessageBox.Show("License Not Created");
+                MessageBox.Show("Failed");
             }
 
+
             this.Close();
+        }
+
+        private void frmCreateLocalDrivingLicense_Load(object sender, EventArgs e)
+        {
+            if (LocalDrivingLicenseApp == null)
+            {
+                this.Close();
+                MessageBox.Show("License Not Exists");
+                return;
+            }
+
+            ucLocalDrivingApplicationDetails.LoadApplicationByLocalApplicationId(LocalDrivingLicenseApp.ApplicationID);
+
+
         }
     }
 }

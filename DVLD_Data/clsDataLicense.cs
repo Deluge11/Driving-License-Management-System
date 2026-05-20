@@ -48,7 +48,7 @@ namespace DVLD_Data
             return dt;
         }
 
-        public static DataTable GetAll(int driverId)
+        public static DataTable GetByDriverId(int driverId)
         {
             string query =
             @"SELECT
@@ -121,7 +121,6 @@ namespace DVLD_Data
                     info.LicenseClass = (int)reader["LicenseClass"];
                     info.IssueDate = (DateTime)reader["IssueDate"];
                     info.ExpirationDate = (DateTime)reader["ExpirationDate"];
-                    info.Notes = (string)reader["Notes"];
                     info.PaidFees = (decimal)reader["PaidFees"];
                     info.IsActive = (bool)reader["IsActive"];
                     info.IssueReason = (byte)reader["IssueReason"];
@@ -321,6 +320,5 @@ namespace DVLD_Data
 
             return isInserted;
         }
-
     }
 }
